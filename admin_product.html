@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Admin: Product Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block admin-sidebar p-0">
+                <div class="p-3 text-center">
+                    <a href="admin_dashboard.html" class="text-decoration-none">
+                        <h4 class="y2k-title">KPOP <span>CLUB</span></h4>
+                        <p class="small text-muted">Admin Panel</p>
+                    </a>
+                </div>
+                <hr class="mx-3">
+                <ul class="nav flex-column p-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_dashboard.html">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin_product.html">
+                            <i class="fas fa-box me-2"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_articles.html">
+                            <i class="fas fa-newspaper me-2"></i> Articles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_users.html">
+                            <i class="fas fa-users me-2"></i> Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_transaksi.html">
+                            <i class="fas fa-money-bill-wave me-2"></i> Transactions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-cog me-2"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link text-danger" href="Landingpage.html" data-action="logout">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ms-sm-auto">
+                <!-- Header -->
+                <div class="admin-header-simple d-flex justify-content-between align-items-center px-3">
+                    <div class="d-flex align-items-center">
+                        <button class="btn sidebar-toggle d-md-none me-3" type="button" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h4 class="page-title mb-0">Product Management</h4>
+                    </div>
+                    
+                    <div class="d-flex align-items-center ms-auto">
+                        <div class="notification-wrapper me-3">
+                            <button class="btn notification-btn position-relative" type="button">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-dot"></span>
+                            </button>
+                        </div>
+                        
+                        <div class="profile-section d-flex align-items-center">
+                            <img id="admin-avatar" src="/placeholder.svg?height=40&width=40" alt="Admin" class="profile-avatar me-2">
+                            <div class="profile-info">
+                                <div id="admin-name" class="profile-name">Loading...</div>
+                                <div id="admin-role" class="profile-role">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                
+                <!-- Products Table -->
+                <div class="admin-content p-3">
+                    <!-- Actions and Filters -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <button class="y2k-button" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                <i class="fas fa-plus me-2"></i> Add New Product
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search products..." id="search-input">
+                                <button class="y2k-button" type="button" id="search-button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select class="form-select" id="category-filter">
+                                <option value="all">All Categories</option>
+                                <option value="lightsticks">Lightsticks</option>
+                                <option value="albums">Albums</option>
+                                <option value="photocards">Photocards</option>
+                                <option value="apparel">Apparel</option>
+                                <option value="pre-order">Pre-Order</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select class="form-select" id="artist-filter">
+                                <option value="all">All Artists</option>
+                                <option value="bts">BTS</option>
+                                <option value="blackpink">BLACKPINK</blackpink>
+                                <option value="twice">TWICE</twice>
+                                <option value="txt">TXT</option>
+                                <option value="enhypen">ENHYPEN</enhypen>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select class="form-select" id="status-filter">
+                                <option value="all">All Status</option>
+                                <option value="in-stock">In Stock</option>
+                                <option value="low-stock">Low Stock</option>
+                                <option value="out-of-stock">Out of Stock</option>
+                                <option value="pre-order">Pre-Order</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="y2k-button w-100" id="apply-filters">
+                                <i class="fas fa-filter me-2"></i> Apply Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Products Table - Simple like admin_users -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="text-align: center;">
+                                    <th>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="selectAll">
+                                            <label class="form-check-label" for="selectAll"></label>
+                                        </div>
+                                    </th>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Category</th>
+                                    <th>Artist</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- Products will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="d-flex align-items-center">
+                            <select class="form-select me-2" style="width: auto;" id="bulk-action">
+                                <option value="">Bulk Actions</option>
+                                <option value="in-stock">Mark as In Stock</option>
+                                <option value="out-of-stock">Mark as Out of Stock</option>
+                                <option value="pre-order">Mark as Pre-Order</option>
+                                <option value="delete">Delete</option>
+                            </select>
+                            <button class="y2k-button" id="apply-bulk">Apply</button>
+                        </div>
+                        <nav aria-label="Products pagination">
+                            <ul class="pagination justify-content-md-end mb-0">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name *</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="productSKU" class="form-label">SKU *</label>
+                                <input type="text" class="form-control" id="productSKU" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="productPrice" class="form-label">Price (Rp) *</label>
+                                <input type="number" class="form-control" id="productPrice" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="productCategory" class="form-label">Category *</label>
+                                <select class="form-select" id="productCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="lightsticks">Lightsticks</option>
+                                    <option value="albums">Albums</option>
+                                    <option value="photocards">Photocards</option>
+                                    <option value="apparel">Apparel</option>
+                                    <option value="pre-order">Pre-Order</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="productArtist" class="form-label">Artist *</label>
+                                <select class="form-select" id="productArtist" required>
+                                    <option value="">Select Artist</option>
+                                    <option value="bts">BTS</option>
+                                    <option value="blackpink">BLACKPINK</blackpink>
+                                    <option value="twice">TWICE</twice>
+                                    <option value="txt">TXT</option>
+                                    <option value="enhypen">ENHYPEN</enhypen>
+                                    <option value="aespa">aespa</option>
+                                    <option value="stray-kids">Stray Kids</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="productStock" class="form-label">Stock Quantity</label>
+                                <input type="number" class="form-control" id="productStock" value="0" min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="productStatus" class="form-label">Status</label>
+                                <select class="form-select" id="productStatus">
+                                    <option value="in-stock">In Stock</option>
+                                    <option value="out-of-stock">Out of Stock</option>
+                                    <option value="pre-order">Pre-Order</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productImage" class="form-label">Product Image</label>
+                            <input type="file" class="form-control" id="productImage" accept="image/*">
+                            <div class="form-text">Upload product image or leave empty for default placeholder</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productFeatures" class="form-label">Features</label>
+                            <textarea class="form-control" id="productFeatures" rows="3" placeholder="Enter features (one per line)"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="y2k-button" id="saveProduct">Save Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm">
+                        <input type="hidden" id="editProductId">
+                        <div class="mb-3">
+                            <label for="editProductName" class="form-label">Product Name *</label>
+                            <input type="text" class="form-control" id="editProductName" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editProductSKU" class="form-label">SKU *</label>
+                                <input type="text" class="form-control" id="editProductSKU" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editProductPrice" class="form-label">Price (Rp) *</label>
+                                <input type="number" class="form-control" id="editProductPrice" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editProductCategory" class="form-label">Category *</label>
+                                <select class="form-select" id="editProductCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="lightsticks">Lightsticks</option>
+                                    <option value="albums">Albums</option>
+                                    <option value="photocards">Photocards</option>
+                                    <option value="apparel">Apparel</option>
+                                    <option value="pre-order">Pre-Order</pre-order>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editProductArtist" class="form-label">Artist *</label>
+                                <select class="form-select" id="editProductArtist" required>
+                                    <option value="">Select Artist</option>
+                                    <option value="bts">BTS</option>
+                                    <option value="blackpink">BLACKPINK</blackpink>
+                                    <option value="twice">TWICE</twice>
+                                    <option value="txt">TXT</option>
+                                    <option value="enhypen">ENHYPEN</enhypen>
+                                    <option value="aespa">aespa</option>
+                                    <option value="stray-kids">Stray Kids</stray-kids>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editProductStock" class="form-label">Stock Quantity</label>
+                                <input type="number" class="form-control" id="editProductStock" min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editProductStatus" class="form-label">Status</label>
+                                <select class="form-select" id="editProductStatus">
+                                    <option value="in-stock">In Stock</option>
+                                    <option value="out-of-stock">Out of Stock</option>
+                                    <option value="pre-order">Pre-Order</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductImage" class="form-label">Product Image</label>
+                            <div class="mb-2" id="currentImagePreview">
+                                <!-- Current image will be shown here -->
+                            </div>
+                            <input type="file" class="form-control" id="editProductImage" accept="image/*">
+                            <div class="form-text">Upload new image or leave empty to keep current image</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editProductDescription" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductFeatures" class="form-label">Features</label>
+                            <textarea class="form-control" id="editProductFeatures" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="y2k-button" id="updateProduct">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Product Management JS -->
+    <script src="assets/js/product.js"></script>
+    
+    <script>
+// Enhanced Mobile sidebar toggle functionality
+document.addEventListener("DOMContentLoaded", function() {
+    // Check admin access first
+    if (!checkAdminAccess()) {
+        return;
+    }
+
+    // Load admin profile
+    loadAdminProfile();
+    
+    // Handle logout
+    handleLogout();
+
+    // Initialize product management
+    initProductManagement();
+    
+    // Mobile sidebar toggle functionality
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.querySelector('.admin-sidebar');
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            sidebar.classList.toggle('show');
+        });
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            sidebar && 
+            sidebar.classList.contains('show') && 
+            !sidebar.contains(event.target) && 
+            sidebarToggle && 
+            !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('show');
+        }
+    });
+
+    // Close sidebar on window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768 && sidebar) {
+            sidebar.classList.remove('show');
+        }
+    });
+});
+
+function initProductManagement() {
+    loadProductsTable();
+    setupEventListeners();
+}
+
+function loadProductsTable() {
+    const allProducts = window.productManager.getAllProducts();
+    const tableBody = document.getElementById('products-table-body');
+    
+    let tableHTML = '';
+    
+    allProducts.forEach(product => {
+        const statusBadge = window.productManager.getStatusBadge(product.status);
+        const isAdminProduct = product.id.startsWith('admin-');
+        
+        tableHTML += `
+            <tr data-product-id="${product.id}">
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input product-checkbox" type="checkbox" value="${product.id}">
+                        <label class="form-check-label"></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="${product.image}" alt="${product.name}" class="me-2" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" onerror="this.src='https://via.placeholder.com/50'">
+                        <div>${product.name}</div>
+                    </div>
+                </td>
+                <td>${product.sku || 'N/A'}</td>
+                <td>${product.category}</td>
+                <td>${product.artist}</td>
+                <td>Rp ${window.productManager.formatPrice(product.price)}</td>
+                <td>${product.stock || 0}</td>
+                <td>${statusBadge}</td>
+                <td>
+                    <div class="btn-group">
+                        ${isAdminProduct ? `
+                            <button class="btn btn-sm btn-outline-primary edit-product" data-id="${product.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-product" data-id="${product.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        ` : `
+                            <button class="btn btn-sm btn-outline-secondary" disabled title="Cannot edit default products">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" disabled title="Cannot delete default products">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `}
+                        <button class="btn btn-sm btn-outline-info view-product" data-id="${product.id}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    
+    tableBody.innerHTML = tableHTML;
+    setupTableEventListeners();
+}
+
+function setupEventListeners() {
+    // Add product
+    document.getElementById('saveProduct').addEventListener('click', handleAddProduct);
+    
+    // Update product
+    document.getElementById('updateProduct').addEventListener('click', handleUpdateProduct);
+    
+    // Search
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    });
+    
+    // Filters
+    document.getElementById('apply-filters').addEventListener('click', handleFilters);
+    
+    // Select all checkbox
+    document.getElementById('selectAll').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+    });
+    
+    // Bulk actions
+    document.getElementById('apply-bulk').addEventListener('click', handleBulkActions);
+}
+
+function setupTableEventListeners() {
+    // Edit buttons
+    document.querySelectorAll('.edit-product').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            handleEditProduct(productId);
+        });
+    });
+    
+    // Delete buttons
+    document.querySelectorAll('.delete-product').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            handleDeleteProduct(productId);
+        });
+    });
+    
+    // View buttons
+    document.querySelectorAll('.view-product').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            window.open(`detail_product.html?id=${productId}`, '_blank');
+        });
+    });
+}
+
+async function handleAddProduct() {
+    const productData = {
+        name: document.getElementById('productName').value.trim(),
+        sku: document.getElementById('productSKU').value.trim(),
+        price: parseInt(document.getElementById('productPrice').value),
+        category: document.getElementById('productCategory').value,
+        artist: document.getElementById('productArtist').value,
+        stock: parseInt(document.getElementById('productStock').value) || 0,
+        status: document.getElementById('productStatus').value,
+        description: document.getElementById('productDescription').value.trim(),
+        features: document.getElementById('productFeatures').value.trim()
+    };
+    
+    // Validate
+    const errors = window.productManager.validateProduct(productData);
+    if (errors.length > 0) {
+        showAlert(errors.join('<br>'), 'error');
+        return;
+    }
+    
+    // Handle image upload
+    const imageFile = document.getElementById('productImage').files[0];
+    if (imageFile) {
+        productData.image = await window.productManager.handleImageUpload(imageFile);
+    }
+    
+    // Add product
+    const newProduct = window.productManager.addProduct(productData);
+    
+    if (newProduct) {
+        // Close modal and reset form
+        bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+        document.getElementById('addProductForm').reset();
+        
+        // Reload table
+        loadProductsTable();
+        
+        showAlert('Product added successfully!', 'success');
+    } else {
+        showAlert('Failed to add product', 'error');
+    }
+}
+
+function handleEditProduct(productId) {
+    const product = window.productManager.getProductById(productId);
+    
+    if (!product) {
+        showAlert('Product not found', 'error');
+        return;
+    }
+    
+    // Populate form
+    document.getElementById('editProductId').value = product.id;
+    document.getElementById('editProductName').value = product.name;
+    document.getElementById('editProductSKU').value = product.sku || '';
+    document.getElementById('editProductPrice').value = product.price;
+    document.getElementById('editProductCategory').value = product.category;
+    document.getElementById('editProductArtist').value = product.artist;
+    document.getElementById('editProductStock').value = product.stock || 0;
+    document.getElementById('editProductStatus').value = product.status;
+    document.getElementById('editProductDescription').value = product.description || '';
+    document.getElementById('editProductFeatures').value = product.features || '';
+    
+    // Show current image
+    const imagePreview = document.getElementById('currentImagePreview');
+    imagePreview.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="img-thumbnail" style="max-width: 150px;">
+    `;
+    
+    // Show modal
+    new bootstrap.Modal(document.getElementById('editProductModal')).show();
+}
+
+async function handleUpdateProduct() {
+    const productId = document.getElementById('editProductId').value;
+    const productData = {
+        id: productId,
+        name: document.getElementById('editProductName').value.trim(),
+        sku: document.getElementById('editProductSKU').value.trim(),
+        price: parseInt(document.getElementById('editProductPrice').value),
+        category: document.getElementById('editProductCategory').value,
+        artist: document.getElementById('editProductArtist').value,
+        stock: parseInt(document.getElementById('editProductStock').value) || 0,
+        status: document.getElementById('editProductStatus').value,
+        description: document.getElementById('editProductDescription').value.trim(),
+        features: document.getElementById('editProductFeatures').value.trim()
+    };
+    
+    // Validate
+    const errors = window.productManager.validateProduct(productData);
+    if (errors.length > 0) {
+        showAlert(errors.join('<br>'), 'error');
+        return;
+    }
+    
+    // Handle image upload if new image selected
+    const imageFile = document.getElementById('editProductImage').files[0];
+    if (imageFile) {
+        productData.image = await window.productManager.handleImageUpload(imageFile);
+    }
+    
+    // Update product
+    const success = window.productManager.updateProduct(productData);
+    
+    if (success) {
+        // Close modal
+        bootstrap.Modal.getInstance(document.getElementById('editProductModal')).hide();
+        
+        // Reload table
+        loadProductsTable();
+        
+        showAlert('Product updated successfully!', 'success');
+    } else {
+        showAlert('Failed to update product', 'error');
+    }
+}
+
+function handleDeleteProduct(productId) {
+    if (!confirm('Are you sure you want to delete this product?')) {
+        return;
+    }
+    
+    const success = window.productManager.deleteProduct(productId);
+    
+    if (success) {
+        loadProductsTable();
+        showAlert('Product deleted successfully!', 'success');
+    } else {
+        showAlert('Failed to delete product', 'error');
+    }
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.trim();
+    const filters = { search: searchTerm };
+    const filteredProducts = window.productManager.filterProducts(filters);
+    displayFilteredProducts(filteredProducts);
+}
+
+function handleFilters() {
+    const filters = {
+        category: document.getElementById('category-filter').value,
+        artist: document.getElementById('artist-filter').value,
+        status: document.getElementById('status-filter').value
+    };
+    
+    const filteredProducts = window.productManager.filterProducts(filters);
+    displayFilteredProducts(filteredProducts);
+}
+
+function displayFilteredProducts(products) {
+    const tableBody = document.getElementById('products-table-body');
+    
+    if (products.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="text-center py-4">
+                    <p class="mb-0">No products found matching your criteria.</p>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    let tableHTML = '';
+    
+    products.forEach(product => {
+        const statusBadge = window.productManager.getStatusBadge(product.status);
+        const isAdminProduct = product.id.startsWith('admin-');
+        
+        tableHTML += `
+            <tr data-product-id="${product.id}">
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input product-checkbox" type="checkbox" value="${product.id}">
+                        <label class="form-check-label"></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="${product.image}" alt="${product.name}" class="me-2" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" onerror="this.src='https://via.placeholder.com/50'">
+                        <div>${product.name}</div>
+                    </div>
+                </td>
+                <td>${product.sku || 'N/A'}</td>
+                <td>${product.category}</td>
+                <td>${product.artist}</td>
+                <td>Rp ${window.productManager.formatPrice(product.price)}</td>
+                <td>${product.stock || 0}</td>
+                <td>${statusBadge}</td>
+                <td>
+                    <div class="btn-group">
+                        ${isAdminProduct ? `
+                            <button class="btn btn-sm btn-outline-primary edit-product" data-id="${product.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-product" data-id="${product.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        ` : `
+                            <button class="btn btn-sm btn-outline-secondary" disabled title="Cannot edit default products">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" disabled title="Cannot delete default products">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `}
+                        <button class="btn btn-sm btn-outline-info view-product" data-id="${product.id}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    
+    tableBody.innerHTML = tableHTML;
+    setupTableEventListeners();
+}
+
+function handleBulkActions() {
+    const action = document.getElementById('bulk-action').value;
+    const selectedProducts = Array.from(document.querySelectorAll('.product-checkbox:checked')).map(cb => cb.value);
+    
+    if (!action || selectedProducts.length === 0) {
+        showAlert('Please select an action and at least one product', 'warning');
+        return;
+    }
+    
+    if (action === 'delete') {
+        if (!confirm(`Are you sure you want to delete ${selectedProducts.length} product(s)?`)) {
+            return;
+        }
+        
+        let deletedCount = 0;
+        selectedProducts.forEach(productId => {
+            if (window.productManager.deleteProduct(productId)) {
+                deletedCount++;
+            }
+        });
+        
+        loadProductsTable();
+        showAlert(`${deletedCount} product(s) deleted successfully!`, 'success');
+    } else {
+        // Status update
+        let updatedCount = 0;
+        selectedProducts.forEach(productId => {
+            const product = window.productManager.getProductById(productId);
+            if (product && product.id.startsWith('admin-')) {
+                product.status = action;
+                if (window.productManager.updateProduct(product)) {
+                    updatedCount++;
+                }
+            }
+        });
+        
+        loadProductsTable();
+        showAlert(`${updatedCount} product(s) status updated successfully!`, 'success');
+    }
+    
+    // Reset bulk action
+    document.getElementById('bulk-action').value = '';
+    document.getElementById('selectAll').checked = false;
+}
+
+function showAlert(message, type) {
+    const alertClass = type === 'success' ? 'alert-success' : 
+                     type === 'warning' ? 'alert-warning' : 'alert-danger';
+    
+    const alertHTML = `
+        <div class="alert ${alertClass} alert-dismissible fade show position-fixed" 
+             style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+    
+    // Remove existing alerts
+    document.querySelectorAll('.alert').forEach(alert => alert.remove());
+    
+    // Add new alert
+    document.body.insertAdjacentHTML('beforeend', alertHTML);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        const alert = document.querySelector('.alert');
+        if (alert) alert.remove();
+    }, 5000);
+}
+
+// Load Admin Profile Data
+function loadAdminProfile() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    
+    if (currentUser && currentUser.name) {
+        document.getElementById('admin-name').textContent = currentUser.name;
+        const role = currentUser.role || 'user';
+        document.getElementById('admin-role').textContent = role.charAt(0).toUpperCase() + role.slice(1);
+        const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=4a90e2&color=ffffff&size=40&font-size=0.6&rounded=true&bold=true`;
+        document.getElementById('admin-avatar').src = avatarUrl;
+        document.getElementById('admin-avatar').alt = currentUser.name;
+    } else {
+        document.getElementById('admin-name').textContent = 'Admin User';
+        document.getElementById('admin-role').textContent = 'Admin';
+    }
+}
+
+// Check admin access
+function checkAdminAccess() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    
+    if (!isLoggedIn || currentUser.role !== 'admin') {
+        alert('Access denied. Admin privileges required.');
+        window.location.href = 'login.html';
+        return false;
+    }
+    return true;
+}
+
+// Handle logout
+function handleLogout() {
+    const logoutButtons = document.querySelectorAll('[data-action="logout"]');
+    
+    logoutButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('currentUser');
+                window.location.href = 'Landingpage.html';
+            }
+        });
+    });
+}
+</script>
+</body>
+</html>

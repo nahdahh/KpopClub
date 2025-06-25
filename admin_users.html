@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Admin: User Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 admin-sidebar p-0">
+                <div class="p-3 text-center">
+                    <a href="admin_dashboard.html" class="text-decoration-none">
+                        <h4 class="y2k-title">KPOP <span>CLUB</span></h4>
+                        <p class="small text-muted">Admin Panel</p>
+                    </a>
+                </div>
+                <hr>
+                <ul class="nav flex-column p-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_dashboard.html">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_product.html">
+                            <i class="fas fa-box me-2"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_articles.html">
+                            <i class="fas fa-newspaper me-2"></i> Articles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin_users.html">
+                            <i class="fas fa-users me-2"></i> Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_transaksi.html">
+                            <i class="fas fa-money-bill-wave me-2"></i> Transactions
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_settings.html">
+                            <i class="fas fa-cog me-2"></i> Settings
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item mt-5">
+                        <a class="nav-link text-danger" href="index.html" data-action="logout">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ms-sm-auto px-0">
+                <!-- Header -->
+                <div class="admin-header-simple d-flex justify-content-between align-items-center px-3 py-3">
+                    <!-- Left: Hamburger Menu + Page Title -->
+                    <div class="d-flex align-items-center">
+                        <button class="btn sidebar-toggle d-md-none me-3" type="button" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h4 class="page-title mb-0">User Management</h4>
+                    </div>
+                    
+                    <!-- Right: Notification + Profile (All aligned to right) -->
+                    <div class="d-flex align-items-center ms-auto">
+                        <!-- Notification Bell -->
+                        <div class="notification-wrapper me-3">
+                            <button class="btn notification-btn position-relative" type="button">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-dot"></span>
+                            </button>
+                        </div>
+                        
+                        <!-- Profile Section -->
+                        <div class="profile-section d-flex align-items-center">
+                            <img id="admin-avatar" src="/placeholder.svg?height=40&width=40" alt="Admin" class="profile-avatar me-2">
+                            <div class="profile-info">
+                                <div id="admin-name" class="profile-name">Loading...</div>
+                                <div id="admin-role" class="profile-role">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="container-fluid p-4">
+                    <!-- Actions and Filters -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <button class="btn y2k-button" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                                <i class="fas fa-plus me-2"></i> Add New User
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search users...">
+                                <button class="btn y2k-button" type="button" onclick="searchUsers()">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select class="form-select" id="roleFilter" onchange="filterUsers()">
+                                <option value="">All Roles</option>
+                                <option value="admin">Admin</option>
+                                <option value="customer">Customer</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select class="form-select" id="statusFilter" onchange="filterUsers()">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="banned">Banned</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select class="form-select" id="sortFilter" onchange="filterUsers()">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="a-z">A-Z</option>
+                                <option value="z-a">Z-A</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn y2k-button w-100" onclick="clearFilters()">
+                                <i class="fas fa-refresh me-2"></i> Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Users Table -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="selectAll">
+                                            <label class="form-check-label" for="selectAll"></label>
+                                        </div>
+                                    </th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Role</th>
+                                    <th class="text-center">Joined</th>
+                                    <th class="text-center">Orders</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <!-- Users will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Bulk Actions -->
+                    <div class="row mt-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="d-flex align-items-center">
+                                <select class="form-select me-2" id="bulkAction" style="width: auto;">
+                                    <option value="">Bulk Actions</option>
+                                    <option value="activate">Activate</option>
+                                    <option value="deactivate">Deactivate</option>
+                                    <option value="ban">Ban</option>
+                                    <option value="delete">Delete</option>
+                                </select>
+                                <button class="y2k-button" id="apply-bulk" onclick="applyBulkAction()">Apply</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <nav aria-label="Users pagination">
+                                <ul class="pagination justify-content-md-end mb-0" id="pagination">
+                                    <!-- Pagination will be generated dynamically -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-select" id="role" name="role">
+                                <option value="customer" selected>Customer</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="active" selected>Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="banned">Banned</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn y2k-button">Add User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUserForm">
+                        <input type="hidden" id="editUserId" name="userId">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editFirstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="editFirstName" name="firstName" value="John">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editLastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="editLastName" name="lastName" value="Doe">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email" value="john.doe@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editRole" class="form-label">Role</label>
+                            <select class="form-select" id="editRole" name="role">
+                                <option value="customer" selected>Customer</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editStatus" class="form-label">Status</label>
+                            <select class="form-select" id="editStatus" name="status">
+                                <option value="active" selected>Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="banned">Banned</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="resetPassword" name="resetPassword">
+                                <label class="form-check-label" for="resetPassword">
+                                    Reset Password
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 password-reset-fields" style="display: none;">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter new password">
+                        </div>
+                        <div class="mb-3 password-reset-fields" style="display: none;">
+                            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm new password">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn y2k-button">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Load Admin Profile Data
+        function loadAdminProfile() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (currentUser && currentUser.name) {
+                document.getElementById('admin-name').textContent = currentUser.name;
+                const role = currentUser.role || 'user';
+                document.getElementById('admin-role').textContent = role.charAt(0).toUpperCase() + role.slice(1);
+                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=4a90e2&color=ffffff&size=40&font-size=0.6&rounded=true&bold=true`;
+                document.getElementById('admin-avatar').src = avatarUrl;
+                document.getElementById('admin-avatar').alt = currentUser.name;
+            } else {
+                document.getElementById('admin-name').textContent = 'Admin User';
+                document.getElementById('admin-role').textContent = 'Admin';
+            }
+        }
+
+        function checkAdminAccess() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (!isLoggedIn || currentUser.role !== 'admin') {
+                alert('Access denied. Admin privileges required.');
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function handleLogout() {
+            const logoutButtons = document.querySelectorAll('[data-action="logout"]');
+            logoutButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('currentUser');
+                        window.location.href = 'Landingpage.html';
+                    }
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check admin access first
+            if (!checkAdminAccess()) {
+                return;
+            }
+
+            // Load admin profile
+            loadAdminProfile();
+
+            // Handle logout
+            handleLogout();
+            
+            // Initialize users management
+            loadUsers();
+            
+            // Select All Checkbox
+            document.getElementById('selectAll').addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('tbody .form-check-input');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+            
+            // Reset Password Toggle
+            const resetPasswordCheckbox = document.getElementById('resetPassword');
+            if (resetPasswordCheckbox) {
+                resetPasswordCheckbox.addEventListener('change', function() {
+                    const passwordFields = document.querySelectorAll('.password-reset-fields');
+                    passwordFields.forEach(field => {
+                        field.style.display = this.checked ? 'block' : 'none';
+                    });
+                });
+            }
+            
+            // Mobile sidebar toggle functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.admin-sidebar');
+
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sidebar.classList.toggle('show');
+                });
+            }
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth < 768 && 
+                    sidebar && 
+                    sidebar.classList.contains('show') && 
+                    !sidebar.contains(event.target) && 
+                    sidebarToggle && 
+                    !sidebarToggle.contains(event.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+
+            // Close sidebar on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768 && sidebar) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        });
+
+        let allUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        const usersPerPage = 10;
+
+        function loadUsers() {
+            allUsers = JSON.parse(localStorage.getItem('kpopUsers')) || [];
+            filteredUsers = [...allUsers];
+            displayUsers();
+        }
+
+        function displayUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const usersToShow = filteredUsers.slice(startIndex, endIndex);
+            
+            if (usersToShow.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <p class="mb-0">No users found.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = usersToShow.map(user => `
+                <tr>
+                    <td class="text-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="${user.id}">
+                            <label class="form-check-label"></label>
+                        </div>
+                    </td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td><span class="badge bg-${user.role === 'admin' ? 'danger' : 'info'}">${user.role}</span></td>
+                    <td>${user.joinedDate}</td>
+                    <td>${user.orders || 0}</td>
+                    <td><span class="badge bg-${user.status === 'active' ? 'success' : user.status === 'inactive' ? 'warning' : 'danger'}">${user.status}</span></td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" onclick="editUser('${user.id}')" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${user.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            
+            updatePagination();
+        }
+
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm === '') {
+                filteredUsers = [...allUsers];
+            } else {
+                filteredUsers = allUsers.filter(user => 
+                    user.name.toLowerCase().includes(searchTerm) ||
+                    user.email.toLowerCase().includes(searchTerm)
+                );
+            }
+            currentPage = 1;
+            displayUsers();
+        }
+
+        function filterUsers() {
+            const roleFilter = document.getElementById('roleFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+            
+            filteredUsers = [...allUsers];
+            
+            // Apply filters
+            if (roleFilter) {
+                filteredUsers = filteredUsers.filter(user => user.role === roleFilter);
+            }
+            
+            if (statusFilter) {
+                filteredUsers = filteredUsers.filter(user => user.status === statusFilter);
+            }
+            
+            // Apply sorting
+            switch (sortFilter) {
+                case 'oldest':
+                    filteredUsers.sort((a, b) => new Date(a.joinedDate) - new Date(b.joinedDate));
+                    break;
+                case 'a-z':
+                    filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'z-a':
+                    filteredUsers.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                default: // newest
+                    filteredUsers.sort((a, b) => new Date(b.joinedDate) - new Date(a.joinedDate));
+            }
+            
+            currentPage = 1;
+            displayUsers();
+        }
+
+        function clearFilters() {
+            document.getElementById('roleFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('sortFilter').value = 'newest';
+            document.getElementById('searchInput').value = '';
+            filteredUsers = [...allUsers];
+            currentPage = 1;
+            displayUsers();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+                </li>
+            `;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>
+                `;
+            }
+            
+            paginationHTML += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+                </li>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                displayUsers();
+            }
+        }
+
+        function editUser(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (user) {
+                document.getElementById('editUserId').value = user.id;
+                document.getElementById('editFirstName').value = user.name.split(' ')[0];
+                document.getElementById('editLastName').value = user.name.split(' ').slice(1).join(' ');
+                document.getElementById('editEmail').value = user.email;
+                document.getElementById('editRole').value = user.role;
+                document.getElementById('editStatus').value = user.status;
+            }
+        }
+
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                allUsers = allUsers.filter(user => user.id !== userId);
+                localStorage.setItem('kpopUsers', JSON.stringify(allUsers));
+                loadUsers();
+            }
+        }
+
+        function applyBulkAction() {
+            const action = document.getElementById('bulkAction').value;
+            const selectedUsers = Array.from(document.querySelectorAll('tbody .form-check-input:checked')).map(cb => cb.value);
+            
+            if (!action || selectedUsers.length === 0) {
+                alert('Please select an action and at least one user.');
+                return;
+            }
+            
+            if (confirm(`Are you sure you want to ${action} ${selectedUsers.length} user(s)?`)) {
+                selectedUsers.forEach(userId => {
+                    const userIndex = allUsers.findIndex(user => user.id === userId);
+                    if (userIndex !== -1) {
+                        switch (action) {
+                            case 'activate':
+                                allUsers[userIndex].status = 'active';
+                                break;
+                            case 'deactivate':
+                                allUsers[userIndex].status = 'inactive';
+                                break;
+                            case 'ban':
+                                allUsers[userIndex].status = 'banned';
+                                break;
+                            case 'delete':
+                                allUsers.splice(userIndex, 1);
+                                break;
+                        }
+                    }
+                });
+                
+                localStorage.setItem('kpopUsers', JSON.stringify(allUsers));
+                loadUsers();
+                document.getElementById('selectAll').checked = false;
+            }
+        }
+
+        // Add User Modal Submit
+        document.getElementById('addUserForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const newUser = {
+                id: Date.now().toString(),
+                name: formData.get('firstName') + ' ' + formData.get('lastName'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                role: formData.get('role'),
+                status: formData.get('status'),
+                joinedDate: new Date().toLocaleDateString('id-ID'),
+                orders: 0
+            };
+            
+            // Check if email already exists
+            if (allUsers.find(user => user.email === newUser.email)) {
+                alert('Email already exists!');
+                return;
+            }
+            
+            allUsers.push(newUser);
+            localStorage.setItem('kpopUsers', JSON.stringify(allUsers));
+            loadUsers();
+            
+            // Close modal and reset form
+            bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
+            this.reset();
+        });
+
+        // Edit User Modal Submit
+        document.getElementById('editUserForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const userId = formData.get('userId');
+            const userIndex = allUsers.findIndex(user => user.id === userId);
+            
+            if (userIndex !== -1) {
+                allUsers[userIndex].name = formData.get('firstName') + ' ' + formData.get('lastName');
+                allUsers[userIndex].email = formData.get('email');
+                allUsers[userIndex].role = formData.get('role');
+                allUsers[userIndex].status = formData.get('status');
+                
+                if (formData.get('resetPassword') && formData.get('newPassword')) {
+                    allUsers[userIndex].password = formData.get('newPassword');
+                }
+                
+                localStorage.setItem('kpopUsers', JSON.stringify(allUsers));
+                loadUsers();
+                
+                // Close modal
+                bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+            }
+        });
+    </script>
+</body>
+</html>

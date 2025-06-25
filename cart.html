@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Shopping Cart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #ffffff; /* Plain white background */
+        }
+        .bg-light {
+            background-color: #f8f9fa !important; /* Keep light section background */
+        }
+        .cart-container {
+            background-color: #ffffff !important; /* Force plain white background */
+            box-shadow: none !important; /* No shadow */
+            border: none !important; /* No border */
+            background-image: none !important; /* No texture or image */
+            padding: 1.5rem; /* Maintain padding for content */
+            margin: 0; /* No external spacing */
+        }
+        .table td, .table th {
+            vertical-align: middle; /* Align text vertically in the middle */
+            text-align: left; /* Align text to the left for consistency */
+        }
+        .table .select-item {
+            vertical-align: middle; /* Ensure checkbox aligns properly */
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link active position-relative" href="#" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+
+                    <!-- Authentication Section -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Free Shipping on Orders Over Rp 500.000 ✨
+    </div>
+    
+    <!-- Cart Section -->
+    <section class="py-5">
+        <div class="container">
+            <h1 class="y2k-title text-center mb-5">Your Shopping Cart</h1>
+            
+            <div class="row">
+                <!-- Cart Items -->
+                <div class="col-lg-8 mb-4">
+                    <div class="cart-container">
+                        <div id="cart-items-container">
+                            <!-- Cart items will be loaded dynamically -->
+                            <div class="text-center py-5" id="empty-cart-message">
+                                <div class="mb-4">
+                                    <i class="fas fa-shopping-cart fa-4x text-muted"></i>
+                                </div>
+                                <h3 class="y2k-subtitle mb-3">Your cart is empty</h3>
+                                <p class="mb-4">Looks like you haven't added any items to your cart yet.</p>
+                                <a href="shop.html" class="btn y2k-button px-4 py-2">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Summary -->
+                <div class="col-lg-4">
+                    <div class="y2k-card p-4">
+                        <h3 class="y2k-subtitle mb-4">Order Summary</h3>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal">Rp 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span id="cart-shipping">Rp 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tax (10%)</span>
+                            <span id="cart-tax">Rp 0</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <strong>Total</strong>
+                            <strong id="cart-total">Rp 0</strong>
+                        </div>
+                        
+                        <!-- Promo Code -->
+                        <div class="mb-4">
+                            <label for="promo-code" class="form-label">Promo Code</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="promo-code" placeholder="Enter code">
+                                <button class="btn y2k-button" type="button" id="apply-promo">Apply</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Checkout Button -->
+                        <a href="payment.html" class="btn y2k-button w-100 py-2" id="checkout-button" disabled>
+                            Proceed to Checkout
+                        </a>
+                        
+                        <!-- Continue Shopping -->
+                        <div class="text-center mt-3">
+                            <a href="shop.html" class="text-decoration-none">
+                                <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                            </a>
+                        </div>
+                        <!-- Order History Link -->
+                        <div class="text-center mt-2">
+                            <a href="history_transaksi.html" class="text-decoration-none">
+                                <i class="fas fa-history me-2"></i> View Order History
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+   
+    <!-- Footer -->
+    <footer class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Drops</a></li>
+                        <li><a href="shop.html">Fan Favorites</a></li>
+                        <li><a href="shop.html#preorder">Pre-Orders</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Connect</h4>
+                    <p>Follow us for idol updates and merch drops! 💖</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4 mt-4 border-top border-secondary">
+                © 2025 KPOP CLUB. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load cart items
+            loadCartItems();
+            
+            // Apply promo code
+            document.getElementById('apply-promo').addEventListener('click', function() {
+                const promoCode = document.getElementById('promo-code').value.trim();
+                
+                if (promoCode === 'KPOP25') {
+                    alert('Promo code applied! You got 25% off.');
+                    calculateTotal(0.25); // 25% discount
+                } else if (promoCode === 'FREESHIP') {
+                    alert('Promo code applied! Free shipping.');
+                    document.getElementById('cart-shipping').textContent = 'Rp 0';
+                    calculateTotal(0);
+                } else {
+                    alert('Invalid promo code. Please try again.');
+                }
+            });
+        });
+        
+        // Function to load cart items - user specific
+function loadCartItems() {
+    const cartItemsContainer = document.getElementById('cart-items-container');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    const checkoutButton = document.getElementById('checkout-button');
+    
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    
+    if (!isLoggedIn || !currentUser.id) {
+        // Show login required message
+        emptyCartMessage.innerHTML = `
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-lock fa-4x text-muted"></i>
+                </div>
+                <h3 class="y2k-subtitle mb-3">Login Required</h3>
+                <p class="mb-4">Please login to view and manage your cart.</p>
+                <a href="login.html" class="btn y2k-button px-4 py-2">Login Now</a>
+            </div>
+        `;
+        emptyCartMessage.style.display = 'block';
+        checkoutButton.disabled = true;
+        
+        // Reset summary
+        document.getElementById('cart-subtotal').textContent = 'Rp 0';
+        document.getElementById('cart-shipping').textContent = 'Rp 0';
+        document.getElementById('cart-tax').textContent = 'Rp 0';
+        document.getElementById('cart-total').textContent = 'Rp 0';
+        
+        return;
+    }
+    
+    // Get user-specific cart
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    
+    // Update cart count
+    updateCartCount();
+    
+    if (cart.length === 0) {
+        // Show empty cart message
+        emptyCartMessage.style.display = 'block';
+        checkoutButton.disabled = true;
+        
+        // Reset summary
+        document.getElementById('cart-subtotal').textContent = 'Rp 0';
+        document.getElementById('cart-shipping').textContent = 'Rp 0';
+        document.getElementById('cart-tax').textContent = 'Rp 0';
+        document.getElementById('cart-total').textContent = 'Rp 0';
+        
+        return;
+    }
+    
+    // Hide empty cart message and enable checkout button
+    emptyCartMessage.style.display = 'none';
+    checkoutButton.disabled = false;
+    
+    // Generate cart items HTML
+    let cartItemsHTML = `
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all" checked> </th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+    
+    cart.forEach(item => {
+        // Add isSelected property if not present
+        item.isSelected = item.isSelected !== undefined ? item.isSelected : true;
+        cartItemsHTML += `
+            <tr>
+                <td>
+                    <input type="checkbox" class="select-item" data-id="${item.id}" ${item.isSelected ? 'checked' : ''}>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="${item.image}" alt="${item.name}" class="img-fluid me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <div>
+                            <h6 class="mb-0">${item.name}</h6>
+                        </div>
+                    </div>
+                </td>
+                <td>Rp ${formatPrice(item.price)}</td>
+                <td>
+                    <div class="input-group" style="width: 120px;">
+                        <button class="btn y2k-button decrease-quantity" data-id="${item.id}">-</button>
+                        <input type="text" class="form-control text-center" value="${item.quantity}" readonly>
+                        <button class="btn y2k-button increase-quantity" data-id="${item.id}">+</button>
+                    </div>
+                </td>
+                <td>Rp ${formatPrice(item.price * item.quantity)}</td>
+                <td>
+                    <button class="btn btn-sm remove-item" data-id="${item.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    
+    cartItemsHTML += `
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <button class="btn y2k-button" id="clear-cart">Clear Cart</button>
+            <button class="btn y2k-button" id="update-cart">Update Cart</button>
+        </div>
+    `;
+    
+    cartItemsContainer.innerHTML = cartItemsHTML;
+    
+    // Save updated cart with isSelected property
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+    
+    // Calculate totals
+    calculateTotal(0);
+    
+    // Add event listeners for quantity buttons
+    document.querySelectorAll('.increase-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            updateItemQuantity(id, 1);
+        });
+    });
+    
+    document.querySelectorAll('.decrease-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            updateItemQuantity(id, -1);
+        });
+    });
+    
+    // Add event listeners for remove buttons
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            removeItem(id);
+        });
+    });
+    
+    // Add event listener for select all checkbox
+    document.getElementById('select-all').addEventListener('change', function() {
+        const isChecked = this.checked;
+        cart.forEach(item => item.isSelected = isChecked);
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+        loadCartItems();
+    });
+    
+    // Add event listeners for individual item checkboxes
+    document.querySelectorAll('.select-item').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const id = this.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.isSelected = this.checked;
+                localStorage.setItem(userCartKey, JSON.stringify(cart));
+                calculateTotal(0);
+            }
+            // Update select all checkbox state
+            const allCheckboxes = document.querySelectorAll('.select-item');
+            const allChecked = Array.from(allCheckboxes).every(cb => cb.checked);
+            document.getElementById('select-all').checked = allChecked;
+        });
+    });
+    
+    // Clear cart button
+    document.getElementById('clear-cart').addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear your cart?')) {
+            localStorage.removeItem(userCartKey);
+            loadCartItems();
+        }
+    });
+    
+    // Update cart button
+    document.getElementById('update-cart').addEventListener('click', function() {
+        alert('Cart updated!');
+        calculateTotal(0);
+    });
+    
+    // Update checkout button state
+    updateCheckoutButton();
+}
+
+// Function to update item quantity - user specific
+function updateItemQuantity(id, change) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.id) return;
+    
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    const item = cart.find(item => item.id === id);
+    
+    if (item) {
+        item.quantity += change;
+        
+        if (item.quantity < 1) {
+            item.quantity = 1;
+        }
+        
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+        loadCartItems();
+    }
+}
+
+// Function to remove item - user specific
+function removeItem(id) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.id) return;
+    
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    const updatedCart = cart.filter(item => item.id !== id);
+    
+    localStorage.setItem(userCartKey, JSON.stringify(updatedCart));
+    loadCartItems();
+}
+
+// Function to calculate totals - user specific
+function calculateTotal(discountPercent) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.id) return;
+    
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    
+    // Calculate subtotal for selected items only
+    const subtotal = cart.reduce((total, item) => {
+        return item.isSelected ? total + (item.price * item.quantity) : total;
+    }, 0);
+    
+    // Apply discount if any
+    const discountAmount = subtotal * discountPercent;
+    const discountedSubtotal = subtotal - discountAmount;
+    
+    // Calculate shipping (free if over 500,000 for selected items)
+    const shipping = subtotal > 500000 ? 0 : 30000;
+    
+    // Calculate tax (10%)
+    const tax = discountedSubtotal * 0.1;
+    
+    // Calculate total
+    const total = discountedSubtotal + shipping + tax;
+    
+    // Update UI
+    document.getElementById('cart-subtotal').textContent = `Rp ${formatPrice(subtotal)}`;
+    if (discountPercent > 0) {
+        document.getElementById('cart-subtotal').innerHTML = `<del>Rp ${formatPrice(subtotal)}</del> Rp ${formatPrice(discountedSubtotal)} <span class="text-success">(-${discountPercent * 100}%)</span>`;
+    }
+    document.getElementById('cart-shipping').textContent = `Rp ${formatPrice(shipping)}`;
+    document.getElementById('cart-tax').textContent = `Rp ${formatPrice(tax)}`;
+    document.getElementById('cart-total').textContent = `Rp ${formatPrice(total)}`;
+    
+    // Update checkout button state
+    updateCheckoutButton();
+}
+
+// Function to update checkout button state
+function updateCheckoutButton() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.id) {
+        document.getElementById('checkout-button').disabled = true;
+        return;
+    }
+    
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    const hasSelectedItems = cart.some(item => item.isSelected);
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.disabled = !hasSelectedItems;
+}
+
+// Function to update cart count - user specific
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    
+    if (!currentUser.id) {
+        cartCount.textContent = '0';
+        return;
+    }
+    
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = totalItems;
+}
+        
+        // Format price with commas
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+    </script>
+    <script>
+// Authentication functionality
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
+});
+
+function updateAuthUI() {
+    const authSection = document.getElementById('auth-section');
+    const cartButton = document.getElementById('cart-button');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+        
+        // Show cart when logged in
+        if (cartButton) {
+            cartButton.style.display = 'block';
+        }
+        
+        authSection.innerHTML = `
+    <div class="dropdown">
+        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-archive me-2"></i>Arsip</a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+    </div>
+`;
+
+// Add click effect to change name color to light blue
+const profileName = authSection.querySelector('.profile-name');
+const userDropdown = authSection.querySelector('#userDropdown');
+
+userDropdown.addEventListener('click', function() {
+    profileName.style.color = '#87CEEB'; // Light blue color
+});
+
+// Reset color when dropdown is hidden
+userDropdown.addEventListener('blur', function() {
+    setTimeout(() => {
+        profileName.style.color = 'var(--dark)';
+    }, 200);
+});
+        
+    } else {
+        // Hide cart when not logged in
+        if (cartButton) {
+            cartButton.style.display = 'none';
+        }
+        
+        authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    window.location.reload();
+}
+</script>
+</body>
+</html>

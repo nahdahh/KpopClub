@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Transaction History</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .transaction-section {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            min-height: 70vh;
+        }
+
+        .transaction-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .transaction-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .transaction-header {
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-info h6 {
+            margin: 0;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .order-info small {
+            color: #666;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-delivered { background-color: #d4edda; color: #155724; }
+        .status-shipped { background-color: #cce7ff; color: #004085; }
+        .status-processing { background-color: #fff3cd; color: #856404; }
+        .status-cancelled { background-color: #f8d7da; color: #721c24; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-verification { background-color: #d1ecf1; color: #0c5460; }
+
+        .transaction-body {
+            padding: 1rem;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 500;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .item-qty {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .transaction-footer {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm-custom {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .filter-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .payment-deadline {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .transaction-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .item-row {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .item-image {
+                margin-bottom: 0.5rem;
+                margin-right: 0;
+            }
+
+            .transaction-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="article.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </li>
+
+                <!-- Authentication Section -->
+                <li class="nav-item" id="auth-section">
+                    <!-- Will be populated by JavaScript -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Track Your Orders • Fast Support • 100% Secure ✨
+    </div>
+    
+    <!-- Transaction History Section -->
+    <section class="transaction-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="y2k-title mb-0">Order History</h1>
+                <a href="cart.html" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Cart
+                </a>
+            </div>
+            
+            <!-- Simple Filter -->
+            <div class="filter-card">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <select class="form-select" id="status-filter">
+                            <option value="">All Orders</option>
+                            <option value="Pending Payment">Pending Payment</option>
+                            <option value="Payment Verification">Payment Verification</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="period-filter">
+                            <option value="">All Time</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="90">Last 3 Months</option>
+                            <option value="365">Last Year</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="search-filter" placeholder="Search orders...">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn y2k-button w-100" id="apply-filters">Filter</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transactions Container -->
+            <div id="transactions-container">
+                <!-- Transactions will be loaded here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Drops</a></li>
+                        <li><a href="shop.html">Fan Favorites</a></li>
+                        <li><a href="shop.html#preorder">Pre-Orders</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Connect</h4>
+                    <p>Follow us for idol updates and merch drops! 💖</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4 mt-4 border-top border-secondary">
+                © 2025 KPOP CLUB. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Clear any existing data and create fresh sample data
+            clearAndCreateSampleData();
+            loadTransactions();
+
+            document.getElementById('apply-filters').addEventListener('click', loadTransactions);
+            document.getElementById('search-filter').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') loadTransactions();
+            });
+        });
+
+        function clearAndCreateSampleData() {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+            if (!currentUser.id) return;
+
+            // Always create fresh sample data with English status
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const sampleTransactions = [
+                {
+                    id: "KP032405",
+                    userId: currentUser.id,
+                    userName: currentUser.name,
+                    userEmail: currentUser.email,
+                    userPhone: currentUser.phone || "+62 812-3456-7890",
+                    date: new Date().toISOString(),
+                    status: "Pending Payment",
+                    paymentDeadline: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+                    paymentMethod: "Bank Transfer",
+                    items: [
+                        {
+                            id: "1",
+                            name: "Blackpink Logo Hoodie",
+                            image: "https://i.pinimg.com/736x/7b/85/6e/7b856e62b79afc89319566bfbb74d2ee.jpg",
+                            price: 599000,
+                            quantity: 1
+                        }
+                    ],
+                    subtotal: 599000,
+                    shipping: 59900,
+                    tax: 0,
+                    total: 599000,
+                    finalTotal: 658900,
+                    shippingAddress: "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10110, Indonesia",
+                    paymentStatus: "Pending"
+                },
+                {
+                    id: "KP032404",
+                    userId: currentUser.id,
+                    userName: currentUser.name,
+                    userEmail: currentUser.email,
+                    userPhone: currentUser.phone || "+62 812-3456-7890",
+                    date: new Date(Date.now() - 86400000).toISOString(),
+                    status: "Delivered",
+                    items: [
+                        {
+                            id: "2",
+                            name: "BTS Lightstick Ver. 4",
+                            image: "https://i.pinimg.com/736x/82/48/7b/82487b796956e9d1a382f7a1525a474b.jpg",
+                            price: 799000,
+                            quantity: 1
+                        }
+                    ],
+                    subtotal: 799000,
+                    shipping: 25000,
+                    tax: 79900,
+                    total: 799000,
+                    finalTotal: 903900,
+                    shippingAddress: "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10110, Indonesia",
+                    paymentMethod: "Credit Card",
+                    paymentStatus: "Paid"
+                },
+                {
+                    id: "KP032403",
+                    userId: currentUser.id,
+                    userName: currentUser.name,
+                    userEmail: currentUser.email,
+                    userPhone: currentUser.phone || "+62 812-3456-7890",
+                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
+                    status: "Shipped",
+                    items: [
+                        {
+                            id: "3",
+                            name: "TWICE Photocard Set",
+                            image: "https://i.pinimg.com/736x/dc/b2/0d/dcb20dcbf7c7064d95d66e46cb4fbe75.jpg",
+                            price: 199000,
+                            quantity: 1
+                        }
+                    ],
+                    subtotal: 199000,
+                    shipping: 30000,
+                    tax: 19900,
+                    total: 199000,
+                    finalTotal: 248900,
+                    shippingAddress: "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10110, Indonesia",
+                    paymentMethod: "E-Wallet",
+                    paymentStatus: "Paid"
+                }
+            ];
+
+            localStorage.setItem(userTransactionKey, JSON.stringify(sampleTransactions));
+            
+            // Also add to global transactions for admin integration
+            const allTransactions = JSON.parse(localStorage.getItem('allTransactions')) || [];
+            sampleTransactions.forEach(transaction => {
+                const existingIndex = allTransactions.findIndex(t => t.id === transaction.id);
+                if (existingIndex !== -1) {
+                    allTransactions[existingIndex] = transaction;
+                } else {
+                    allTransactions.push(transaction);
+                }
+            });
+            localStorage.setItem('allTransactions', JSON.stringify(allTransactions));
+        }
+
+        function loadTransactions() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+            const container = document.getElementById('transactions-container');
+            
+            if (!isLoggedIn || !currentUser.id) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-lock"></i>
+                        <h4>Login Required</h4>
+                        <p>Please login to view your transaction history.</p>
+                        <a href="login.html" class="btn y2k-button">Login Now</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Get user-specific transactions
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            
+            const statusFilter = document.getElementById('status-filter').value;
+            const periodFilter = document.getElementById('period-filter').value;
+            const searchFilter = document.getElementById('search-filter').value.toLowerCase();
+
+            let filteredTransactions = transactions.filter(transaction => {
+                if (statusFilter && transaction.status !== statusFilter) return false;
+                
+                if (periodFilter) {
+                    const transactionDate = new Date(transaction.date);
+                    const cutoffDate = new Date();
+                    cutoffDate.setDate(cutoffDate.getDate() - parseInt(periodFilter));
+                    if (transactionDate < cutoffDate) return false;
+                }
+
+                if (searchFilter) {
+                    const searchInId = transaction.id.toLowerCase().includes(searchFilter);
+                    const searchInItems = transaction.items.some(item => 
+                        item.name.toLowerCase().includes(searchFilter)
+                    );
+                    if (!searchInId && !searchInItems) return false;
+                }
+
+                return true;
+            });
+
+            filteredTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (filteredTransactions.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-receipt"></i>
+                        <h4>No Orders Found</h4>
+                        <p>You haven't made any orders yet or no orders match your filters.</p>
+                        <a href="shop.html" class="btn y2k-button">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let transactionsHTML = '';
+            filteredTransactions.forEach(transaction => {
+                const statusClass = getStatusClass(transaction.status);
+                const statusText = transaction.status;
+                const actionButtons = getActionButtons(transaction);
+                
+                transactionsHTML += `
+                    <div class="transaction-card">
+                        <div class="transaction-header">
+                            <div class="order-info">
+                                <h6>Order #${transaction.id}</h6>
+                                <small>${formatDate(transaction.date)}</small>
+                                ${transaction.paymentDeadline && transaction.status === 'Pending Payment' ? 
+                                    `<div class="payment-deadline">
+                                        <i class="fas fa-clock me-1"></i>Payment due: ${formatDateTime(transaction.paymentDeadline)}
+                                    </div>` : ''
+                                }
+                            </div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="transaction-body">
+                            ${transaction.items.map(item => `
+                                <div class="item-row">
+                                    <img src="${item.image}" alt="${item.name}" class="item-image">
+                                    <div class="item-details">
+                                        <p class="item-name">${item.name}</p>
+                                        <small class="item-qty">Qty: ${item.quantity}</small>
+                                    </div>
+                                    <div class="item-price">Rp ${formatPrice(item.price * item.quantity)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="transaction-footer">
+                            <div class="total-amount">Total: Rp ${formatPrice(transaction.finalTotal || transaction.total)}</div>
+                            <div class="action-buttons">
+                                ${actionButtons}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = transactionsHTML;
+        }
+
+        function getStatusClass(status) {
+            switch(status) {
+                case 'Pending Payment': return 'status-pending';
+                case 'Payment Verification': return 'status-verification';
+                case 'Processing': return 'status-processing';
+                case 'Shipped': return 'status-shipped';
+                case 'Delivered': return 'status-delivered';
+                case 'Cancelled': return 'status-cancelled';
+                default: return 'status-processing';
+            }
+        }
+
+        function getActionButtons(transaction) {
+            const now = new Date();
+            const paymentDeadline = transaction.paymentDeadline ? new Date(transaction.paymentDeadline) : null;
+            const isPaymentExpired = paymentDeadline && now > paymentDeadline;
+            
+            let buttons = '';
+            
+            switch(transaction.status) {
+                case 'Pending Payment':
+                    buttons += `
+                        <button class="btn btn-success btn-sm-custom me-2" onclick="continuePayment('${transaction.id}')">
+                            <i class="fas fa-credit-card me-1"></i>Continue Payment
+                        </button>
+                        <button class="btn btn-danger btn-sm-custom" onclick="cancelOrder('${transaction.id}')">
+                            <i class="fas fa-times me-1"></i>Cancel Order
+                        </button>
+                    `;
+                    break;
+                    
+                case 'Payment Verification':
+                    buttons += `
+                        <button class="btn btn-outline-info btn-sm-custom" onclick="viewPaymentStatus('${transaction.id}')">
+                            <i class="fas fa-info-circle me-1"></i>Payment Status
+                        </button>
+                    `;
+                    break;
+                    
+                case 'Processing':
+                    buttons += `
+                        <button class="btn btn-outline-secondary btn-sm-custom" onclick="viewOrderDetails('${transaction.id}')">
+                            <i class="fas fa-eye me-1"></i>View Details
+                        </button>
+                    `;
+                    break;
+                    
+                case 'Shipped':
+                    buttons += `
+                        <button class="btn btn-outline-info btn-sm-custom" onclick="trackOrder('${transaction.id}')">
+                            <i class="fas fa-truck me-1"></i>Track Order
+                        </button>
+                    `;
+                    break;
+                    
+                case 'Delivered':
+                    buttons += `
+                        <button class="btn btn-outline-primary btn-sm-custom me-2" onclick="reorderItems('${transaction.id}')">
+                            <i class="fas fa-redo me-1"></i>Reorder
+                        </button>
+                        <button class="btn btn-outline-success btn-sm-custom" onclick="writeReview('${transaction.id}')">
+                            <i class="fas fa-star me-1"></i>Write Review
+                        </button>
+                    `;
+                    break;
+                    
+                case 'Cancelled':
+                    buttons += `
+                        <button class="btn btn-outline-primary btn-sm-custom" onclick="reorderItems('${transaction.id}')">
+                            <i class="fas fa-redo me-1"></i>Reorder
+                        </button>
+                    `;
+                    break;
+            }
+            
+            return buttons;
+        }
+
+        function continuePayment(orderId) {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+            if (!currentUser.id) {
+                alert('Please login to continue payment.');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get the transaction to verify it exists and is still valid
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            const transaction = transactions.find(t => t.id === orderId);
+            
+            if (!transaction) {
+                alert('Order not found.');
+                return;
+            }
+            
+            if (transaction.status !== 'Pending Payment') {
+                alert('This order is no longer pending payment.');
+                loadTransactions();
+                return;
+            }
+            
+            // Check if payment deadline has passed
+            if (transaction.paymentDeadline) {
+                const now = new Date();
+                const deadline = new Date(transaction.paymentDeadline);
+                if (now > deadline) {
+                    alert('Payment deadline has expired. This order will be cancelled.');
+                    cancelOrder(orderId);
+                    return;
+                }
+            }
+            
+            // Redirect to payment process page
+            window.location.href = `payment_process.html?orderId=${orderId}`;
+        }
+
+        function cancelOrder(orderId) {
+            if (!confirm('Are you sure you want to cancel this order? This action cannot be undone.')) {
+                return;
+            }
+            
+            const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+            if (!currentUser.id) {
+                alert('Please login to cancel order.');
+                return;
+            }
+            
+            // Update user transactions
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const userTransactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            const transactionIndex = userTransactions.findIndex(t => t.id === orderId);
+            
+            if (transactionIndex !== -1) {
+                userTransactions[transactionIndex].status = 'Cancelled';
+                userTransactions[transactionIndex].cancelledAt = new Date().toISOString();
+                userTransactions[transactionIndex].cancellationReason = 'Cancelled by customer';
+                localStorage.setItem(userTransactionKey, JSON.stringify(userTransactions));
+                
+                // Update global transactions for admin integration
+                const allTransactions = JSON.parse(localStorage.getItem('allTransactions')) || [];
+                const globalIndex = allTransactions.findIndex(t => t.id === orderId);
+                
+                if (globalIndex !== -1) {
+                    allTransactions[globalIndex].status = 'Cancelled';
+                    allTransactions[globalIndex].cancelledAt = new Date().toISOString();
+                    allTransactions[globalIndex].cancellationReason = 'Cancelled by customer';
+                    localStorage.setItem('allTransactions', JSON.stringify(allTransactions));
+                }
+                
+                alert(`Order #${orderId} has been cancelled successfully. If you made a payment, refund will be processed within 3-5 business days.`);
+                loadTransactions(); // Reload the transactions
+            } else {
+                alert('Order not found or cannot be cancelled.');
+            }
+        }
+
+        function viewPaymentStatus(orderId) {
+            alert(`Payment Status for Order #${orderId}:
+
+Your payment is being verified by our team.
+This process usually takes 1-3 business hours.
+
+If you have any questions, please contact our customer service.`);
+        }
+
+        function reorderItems(orderId) {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+            if (!currentUser.id) return;
+            
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            const transaction = transactions.find(t => t.id === orderId);
+            
+            if (!transaction) return;
+
+            const userCartKey = `kpopCart_${currentUser.id}`;
+            const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+            
+            transaction.items.forEach(item => {
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+                if (existingItem) {
+                    existingItem.quantity += item.quantity;
+                } else {
+                    cart.push({
+                        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+                        name: item.name,
+                        price: item.price,
+                        image: item.image,
+                        quantity: item.quantity,
+                        isSelected: true
+                    });
+                }
+            });
+
+            localStorage.setItem(userCartKey, JSON.stringify(cart));
+            alert(`${transaction.items.length} item(s) added to cart!`);
+        }
+
+        function writeReview(orderId) {
+            alert(`Review feature for Order #${orderId} will be available soon!`);
+        }
+
+        function trackOrder(orderId) {
+            alert(`Tracking order #${orderId}\n\nYour order is on its way!`);
+        }
+
+        function viewOrderDetails(orderId) {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+            if (!currentUser.id) return;
+            
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            const transaction = transactions.find(t => t.id === orderId);
+            
+            if (!transaction) {
+                alert('Order not found.');
+                return;
+            }
+            
+            let itemsList = transaction.items.map(item => 
+                `• ${item.name} (Qty: ${item.quantity}) - Rp ${formatPrice(item.price * item.quantity)}`
+            ).join('\n');
+            
+            alert(`Order Details #${orderId}
+
+Status: ${transaction.status}
+Date: ${formatDate(transaction.date)}
+
+Items:
+${itemsList}
+
+Total: Rp ${formatPrice(transaction.finalTotal || transaction.total)}
+
+Your order is being processed and will be shipped soon.`);
+        }
+
+        function formatDateTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+    </script>
+    <script>
+// Authentication functionality
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
+    updateCartCount();
+});
+
+function updateAuthUI() {
+    const authSection = document.getElementById('auth-section');
+    const cartButton = document.getElementById('cart-button');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+        
+        // Show cart when logged in
+        if (cartButton) {
+            cartButton.style.display = 'block';
+        }
+        
+        authSection.innerHTML = `
+    <div class="dropdown">
+        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+            <li><a class="dropdown-item" href="setting_profile.html" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-archive me-2"></i>Arsip</a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+    </div>
+`;
+
+// Add click effect to change name color to light blue
+const profileName = authSection.querySelector('.profile-name');
+const userDropdown = authSection.querySelector('#userDropdown');
+
+userDropdown.addEventListener('click', function() {
+    profileName.style.color = '#87CEEB'; // Light blue color
+});
+
+// Reset color when dropdown is hidden
+userDropdown.addEventListener('blur', function() {
+    setTimeout(() => {
+        profileName.style.color = 'var(--dark)';
+    }, 200);
+});
+        
+    } else {
+        // Hide cart when not logged in
+        if (cartButton) {
+            cartButton.style.display = 'none';
+        }
+        
+        authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    window.location.reload();
+}
+
+function updateCartCount() {
+    const cartCountSpan = document.getElementById('cart-count');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const userCartKey = `kpopCart_${currentUser.id}`;
+        const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+        let totalQuantity = 0;
+        cart.forEach(item => {
+            totalQuantity += parseInt(item.quantity);
+        });
+        cartCountSpan.textContent = totalQuantity;
+    } else {
+        cartCountSpan.textContent = '0';
+    }
+}
+</script>
+</body>
+</html>

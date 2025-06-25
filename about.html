@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - K-pop Club Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+/* Active navbar styling */
+.navbar-nav .nav-link.active {
+    font-weight: bold !important;
+}
+</style>
+</head>
+<body>
+    
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">KPOP <span>CLUB</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="Landingpage.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="shop.html">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="article.html">Article</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="#" id="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </li>
+
+                <!-- Authentication Section -->
+                <li class="nav-item" id="auth-section">
+                    <!-- Will be populated by JavaScript -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        Free shipping on orders over $50! Use code: KPOPFAN25
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="about-hero-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="sticker mb-3">
+                        <span class="sticker-text">EST. 2020</span>
+                    </div>
+                    <h1 class="y2k-title">About K-pop Club</h1>
+                    <p class="lead mb-4">Your ultimate destination for authentic K-pop merchandise and a community that celebrates Korean pop culture.</p>
+                    <div class="y2k-paper mb-4 p-4">
+                        <p class="mb-0">"We're not just a store, we're a community of fans who share the same passion for K-pop music, fashion, and culture."</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="polaroid">
+                        <img src="https://i.pinimg.com/736x/e4/d8/3c/e4d83cac8d0913e3f9c32a3099564d32.jpg" alt="K-pop Club Store" class="img-fluid">
+                        <div class="polaroid-caption">Our flagship store in Seoul-inspired corner</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="deco-star" style="top: 15%; left: 10%;">✨</div>
+        <div class="deco-star" style="top: 25%; right: 15%;">✨</div>
+        <div class="deco-star" style="bottom: 20%; left: 20%;">✨</div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-5 position-relative">
+        <div class="checkerboard-bg"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="y2k-subtitle mb-4">Our Story</h2>
+                    <div class="y2k-card p-4 mb-5">
+                        <p>K-pop Club started in 2020 as a small online community of passionate K-pop fans who wanted to share their love for Korean music and culture. What began as a simple blog quickly evolved into a thriving marketplace for authentic K-pop merchandise.</p>
+                        <p>Founded by a group of friends who bonded over their shared love for groups like NewJeans, BTS, Blackpink, and Twice, we've grown into a global community connecting fans from all over the world.</p>
+                        <p>Our mission is to bring authentic K-pop merchandise to fans while creating a space where the K-pop community can connect, share, and celebrate together.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Offer Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="y2k-title text-center mb-5">What We Offer</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="y2k-card h-100 p-4 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
+                        </div>
+                        <h3 class="retro-text">Authentic Merchandise</h3>
+                        <p>We source directly from official suppliers in South Korea to ensure all our products are 100% authentic.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="y2k-card h-100 p-4 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-users fa-3x" style="color: var(--secondary);"></i>
+                        </div>
+                        <h3 class="retro-text">Fan Community</h3>
+                        <p>Join our vibrant community of K-pop enthusiasts through events, forums, and fan meetups.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="y2k-card h-100 p-4 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-shipping-fast fa-3x" style="color: var(--accent);"></i>
+                        </div>
+                        <h3 class="retro-text">Global Shipping</h3>
+                        <p>We ship to over 50 countries worldwide, bringing K-pop merchandise to fans everywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Information -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="y2k-title mb-4">Visit Our Store</h2>
+                    <div class="y2k-card p-4 mb-4">
+                        <h4 class="retro-text">Store Hours</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>Monday - Friday:</strong> 10:00 AM - 8:00 PM</li>
+                            <li class="mb-2"><strong>Saturday:</strong> 10:00 AM - 6:00 PM</li>
+                            <li class="mb-2"><strong>Sunday:</strong> 12:00 PM - 5:00 PM</li>
+                        </ul>
+                        
+                        <h4 class="retro-text mt-4">Address</h4>
+                        <address>
+                            123 K-pop Avenue<br>
+                            Seoul District<br>
+                            Los Angeles, CA 90001<br>
+                            United States
+                        </address>
+                        
+                        <h4 class="retro-text mt-4">Contact</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-phone me-2"></i> (123) 456-7890</li>
+                            <li class="mb-2"><i class="fas fa-envelope me-2"></i> hello@kpopclub.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="y2k-title mb-4">Send Us a Message</h2>
+                    <div class="y2k-card p-4">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="4" placeholder="Enter your message"></textarea>
+                            </div>
+                            <button type="submit" class="y2k-button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="y2k-title text-center mb-5">Frequently Asked Questions</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="y2k-card p-4 mb-4">
+                        <h4 class="retro-text">Are your products authentic?</h4>
+                        <p>Yes! All our products are 100% authentic and sourced directly from official suppliers in South Korea. We never sell counterfeit items.</p>
+                    </div>
+                    <div class="y2k-card p-4 mb-4">
+                        <h4 class="retro-text">How long does shipping take?</h4>
+                        <p>Domestic shipping (US) typically takes 3-5 business days. International shipping can take 7-14 business days depending on your location and customs processing.</p>
+                    </div>
+                    <div class="y2k-card p-4 mb-4">
+                        <h4 class="retro-text">Do you offer returns or exchanges?</h4>
+                        <p>We accept returns within 30 days of purchase for unused items in original packaging. For exchanges, please contact our customer support team.</p>
+                    </div>
+                    <div class="y2k-card p-4 mb-4">
+                        <h4 class="retro-text">How can I join the K-pop Club community?</h4>
+                        <p>You can join our community by signing up for an account on our website, following us on social media, and participating in our forums and events!</p>
+                    </div>
+                    <div class="y2k-card p-4">
+                        <h4 class="retro-text">Do you host K-pop events?</h4>
+                        <p>Yes! We regularly host viewing parties, album unboxings, dance workshops, and fan meetups. Check our events page or follow us on social media for updates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="y2k-title mb-4">Join Our Newsletter</h2>
+                    <p class="mb-4">Stay updated with the latest K-pop releases, merchandise drops, and exclusive fan events!</p>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Your email address">
+                                <button class="y2k-button" type="button">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="footer-title">K-pop Club</h3>
+                    <p>Your ultimate destination for authentic K-pop merchandise and a community that celebrates Korean pop culture.</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h3 class="footer-title">Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Albums</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Clothing</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Photocards</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h3 class="footer-title">Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h3 class="footer-title">Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Forum</a></li>
+                        <li><a href="#">Fan Club</a></li>
+                        <li><a href="#">Meetups</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 K-pop Club. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h3 class="cart-title">Your Cart</h3>
+                <button class="close-cart" id="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be loaded dynamically -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">Rp 0</span>
+            </div>
+            <a href="cart.html" class="btn y2k-button w-100">View Cart</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+
+    <script>
+// Authentication functionality
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
+    initializeCartOverlay();
+});
+
+function updateAuthUI() {
+    const authSection = document.getElementById('auth-section');
+    const cartButton = document.getElementById('cart-button');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+        
+        // Show cart when logged in
+        if (cartButton) {
+            cartButton.style.display = 'block';
+        }
+        
+        authSection.innerHTML = `
+    <div class="dropdown">
+        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+    </div>
+`;
+
+// Add click effect to change name color to light blue
+const profileName = authSection.querySelector('.profile-name');
+const userDropdown = authSection.querySelector('#userDropdown');
+
+userDropdown.addEventListener('click', function() {
+    profileName.style.color = '#87CEEB'; // Light blue color
+});
+
+// Reset color when dropdown is hidden
+userDropdown.addEventListener('blur', function() {
+    setTimeout(() => {
+        profileName.style.color = 'var(--dark)';
+    }, 200);
+});
+        
+    } else {
+        // Hide cart when not logged in
+        if (cartButton) {
+            cartButton.style.display = 'none';
+        }
+        
+        authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    window.location.reload();
+}
+
+// Cart overlay functionality
+function initializeCartOverlay() {
+    const cartButton = document.getElementById('cart-button');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const closeCart = document.getElementById('close-cart');
+
+    // Open cart overlay
+    if (cartButton) {
+        cartButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (cartOverlay) {
+                cartOverlay.style.display = 'flex';
+                setTimeout(() => {
+                    cartSidebar.style.transform = 'translateX(0)';
+                }, 10);
+                updateCartOverlay();
+            }
+        });
+    }
+
+    // Close cart overlay
+    if (closeCart) {
+        closeCart.addEventListener('click', function() {
+            cartSidebar.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                cartOverlay.style.display = 'none';
+            }, 300);
+        });
+    }
+
+    // Close cart when clicking outside
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', function(e) {
+            if (e.target === cartOverlay) {
+                cartSidebar.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    cartOverlay.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    // Update cart count
+    updateCartCount();
+}
+
+function updateCartOverlay() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    
+    if (!cartItems || !cartTotal) return;
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    if (!isLoggedIn || !currentUser.id) {
+        cartItems.innerHTML = `
+            <div class="text-center py-4">
+                <div class="mb-3 fs-1">🔒</div>
+                <p>Please login to view your cart</p>
+                <a href="login.html" class="btn y2k-button">Login Now</a>
+            </div>
+        `;
+        cartTotal.textContent = 'Rp 0';
+        return;
+    }
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="text-center py-4">
+                <div class="mb-3 fs-1">🛒</div>
+                <p>Your cart is empty</p>
+            </div>
+        `;
+        cartTotal.textContent = 'Rp 0';
+    } else {
+        let itemsHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            itemsHTML += `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">Rp ${formatPrice(item.price)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">Remove</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        cartItems.innerHTML = itemsHTML;
+        cartTotal.textContent = `Rp ${formatPrice(total)}`;
+
+        // Add event listeners for cart actions
+        addCartEventListeners();
+    }
+}
+
+function addCartEventListeners() {
+    // Increase quantity
+    document.querySelectorAll('.increase-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            updateCartItemQuantity(id, 1);
+        });
+    });
+
+    // Decrease quantity
+    document.querySelectorAll('.decrease-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            updateCartItemQuantity(id, -1);
+        });
+    });
+
+    // Remove item
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            removeCartItem(id);
+        });
+    });
+}
+
+function updateCartItemQuantity(id, change) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (!currentUser.id) return;
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    const item = cart.find(item => item.id === id);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            cart = cart.filter(item => item.id !== id);
+        }
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+        updateCartOverlay();
+        updateCartCount();
+    }
+}
+
+function removeCartItem(id) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (!currentUser.id) return;
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+    updateCartOverlay();
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    if (!cartCount) return;
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    if (!isLoggedIn || !currentUser.id) {
+        cartCount.textContent = '0';
+        return;
+    }
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = totalItems;
+}
+
+function formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Blog & News</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            background-image: none;
+        }
+        
+        .blog-post {
+            transition: all 0.3s ease;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 6px;
+            border: 2px solid var(--dark);
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-category {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--chrome);
+            color: var(--dark);
+            font-family: "Poppins", sans-serif;
+            font-size: 11px;
+            border-radius: 12px;
+            padding: 4px 8px;
+            border: 2px solid var(--secondary);
+            z-index: 2;
+        }
+        
+        .blog-date {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 8px;
+        }
+        
+        .featured-post {
+            position: relative;
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .featured-image {
+            height: 400px;
+            position: relative;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 2px solid var(--dark);
+        }
+        
+        .sidebar-card {
+            margin-bottom: 20px;
+        }
+        
+        .tag-cloud a {
+            display: inline-block;
+            margin: 0 5px 8px 0;
+            padding: 4px 10px;
+            background: var(--light);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            color: var(--dark);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tag-cloud a:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+        
+        .recent-post {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post-image {
+            width: 70px;
+            height: 70px;
+            border: 1px solid var(--dark);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        
+        .recent-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-post-title {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-date {
+            font-size: 0.75rem;
+            color: #777;
+        }
+        
+        .pagination-custom .page-link {
+            border: 2px solid var(--dark);
+            color: var(--dark);
+            margin: 0 3px;
+            border-radius: 8px;
+        }
+        
+        .pagination-custom .page-item.active .page-link {
+            background: var(--chrome);
+            border-color: var(--dark);
+            color: var(--dark);
+        }
+        
+        .search-form {
+            position: relative;
+        }
+        
+        .search-form .form-control {
+            padding-right: 40px;
+        }
+        
+        .search-form button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            background: none;
+            border: none;
+            padding: 0 15px;
+            color: var(--dark);
+        }
+
+        /* Active navbar styling */
+        .navbar-nav .nav-link.active {
+            font-weight: bold !important;
+        }
+    </style>
+</head>
+<body>
+     <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="article.html">Article</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+
+                    <!-- Authentication Section -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Latest K-pop News & Updates • Stay Connected ✨
+    </div>
+    
+    <!-- Blog Header -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <div class="retro-text mb-2">KPOP NEWS</div>
+                <h1 class="y2k-title">Latest Updates</h1>
+                <p class="lead">Stay updated with the latest K-pop news, comebacks, and pre-orders!</p>
+            </div>
+            
+            <!-- Featured Post -->
+            <div class="featured-post">
+                <div class="featured-image">
+                    <div class="blog-category">COMEBACK</div>
+                    <img src="https://i.pinimg.com/1200x/e2/74/f2/e274f25959bd2185951676bed82ea08d.jpg" alt="BoyNextDoor Comeback" class="img-fluid">
+                    <div class="featured-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar-alt me-1"></i> May 10, 2025
+                        </div>
+                        <h2 class="y2k-subtitle">BoyNextDoor Announces Summer Comeback with Mini Album "NOGENRE"</h2>
+                        <p>The hottest Boy group BoyNextDoor is set to make their highly anticipated comeback this summer with their new mini album "NOGENRE". Pre-orders start next week!</p>
+                        <a href="detail_artikel.html" class="btn y2k-button">Read More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Blog Posts -->
+                <div class="col-lg-8">
+                    <div class="row">
+                        <!-- Blog Post 1 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="y2k-card blog-post h-100">
+                                <div class="blog-image position-relative">
+                                    <div class="blog-category">PRE-ORDER</div>
+                                    <img src="https://i.pinimg.com/736x/5e/4e/73/5e4e737ef33ea0dcb5d176190a432a5c.jpg" alt="BTS Album" class="img-fluid">
+                                </div>
+                                <div class="p-3">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar-alt me-1"></i> May 8, 2025
+                                    </div>
+                                    <h3 class="y2k-subtitle">BTS 10th Anniversary Special Edition Album Now Available for Pre-order</h3>
+                                    <p>Don't miss out on this limited edition album celebrating 10 years of BTS! Includes exclusive photocards, posters, and a special photobook.</p>
+                                    <a href="detail_artikel.html" class="btn y2k-button mt-2">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 2 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="y2k-card blog-post h-100">
+                                <div class="blog-image position-relative">
+                                    <div class="blog-category">NEWS</div>
+                                    <img src="https://i.pinimg.com/736x/48/3a/bc/483abce66ab56b31d2d7115cbf05bc9b.jpg" alt="Blackpink Concert" class="img-fluid">
+                                </div>
+                                <div class="p-3">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar-alt me-1"></i> May 5, 2025
+                                    </div>
+                                    <h3 class="y2k-subtitle">Blackpink Announces World Tour Dates for 2025-2026</h3>
+                                    <p>BLINKS rejoice! Blackpink has just announced their new world tour dates spanning 20 countries. Ticket sales start next month.</p>
+                                    <a href="#" class="btn y2k-button mt-2">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 3 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="y2k-card blog-post h-100">
+                                <div class="blog-image position-relative">
+                                    <div class="blog-category">MERCH</div>
+                                    <img src="https://i.pinimg.com/736x/97/a4/46/97a446bbfea54ced77597dbeaca4dbbf.jpg" alt="Stray Kids Merch" class="img-fluid">
+                                </div>
+                                <div class="p-3">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar-alt me-1"></i> May 3, 2025
+                                    </div>
+                                    <h3 class="y2k-subtitle">New Stray Kids Official Merchandise Collection Drops This Week</h3>
+                                    <p>The new Stray Kids merch collection features Y2K-inspired designs, including hoodies, t-shirts, and accessories. Available exclusively at KPOP CLUB!</p>
+                                    <a href="#" class="btn y2k-button mt-2">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 4 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="y2k-card blog-post h-100">
+                                <div class="blog-image position-relative">
+                                    <div class="blog-category">COMEBACK</div>
+                                    <img src="https://i.pinimg.com/736x/3f/7c/4c/3f7c4cc56c9e1d31aedae79f385f63e6.jpg" alt="TWICE Comeback" class="img-fluid">
+                                </div>
+                                <div class="p-3">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar-alt me-1"></i> April 30, 2025
+                                    </div>
+                                    <h3 class="y2k-subtitle">TWICE Teases New Concept Photos for June Comeback</h3>
+                                    <p>TWICE has released stunning new concept photos for their upcoming June comeback. The new concept features a retro summer vibe that fans are loving!</p>
+                                    <a href="#" class="btn y2k-button mt-2">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 5 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="y2k-card blog-post h-100">
+                                <div class="blog-image position-relative">
+                                    <div class="blog-category">PRE-ORDER</div>
+                                    <img src="https://i.pinimg.com/736x/e0/c3/2d/e0c32d7663bbfbbfac7ce18ddee8ac16.jpg" alt="TXT Album" class="img-fluid">
+                                </div>
+                                <div class="p-3">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar-alt me-1"></i> April 28, 2025
+                                    </div>
+                                    <h3 class="y2k-subtitle">TXT's New Album "Dream Chapter: Starlight" Pre-orders Open</h3>
+                                    <p>MOAs can now pre-order TXT's highly anticipated new album "Dream Chapter: Starlight". Pre-order benefits include exclusive photocards and posters.</p>
+                                    <a href="#" class="btn y2k-button mt-2">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 6 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="y2k-card blog-post h-100">
+                                <div class="blog-image position-relative">
+                                    <div class="blog-category">EVENT</div>
+                                    <img src="https://i.pinimg.com/736x/6a/e0/47/6ae047f066ac7f4d0108460aece5f70f.jpg" alt="Fan Meeting" class="img-fluid">
+                                </div>
+                                <div class="p-3">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar-alt me-1"></i> April 25, 2025
+                                    </div>
+                                    <h3 class="y2k-subtitle">KPOP CLUB Hosting Exclusive Fan Meeting with Aespa Next Month</h3>
+                                    <p>We're excited to announce an exclusive fan meeting with Aespa at our flagship store! Limited spots available, purchase details inside.</p>
+                                    <a href="#" class="btn y2k-button mt-2">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="Blog pagination" class="mt-4">
+                        <ul class="pagination pagination-custom justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Search -->
+                    <div class="y2k-card sidebar-card p-3">
+                        <h4 class="y2k-subtitle mb-3">Search</h4>
+                        <form class="search-form">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search blog...">
+                                <button type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="y2k-card sidebar-card p-3">
+                        <h4 class="y2k-subtitle mb-3">Categories</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Comebacks
+                                <span class="badge bg-primary rounded-pill">12</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Pre-Orders
+                                <span class="badge bg-primary rounded-pill">8</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                News
+                                <span class="badge bg-primary rounded-pill">15</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Merchandise
+                                <span class="badge bg-primary rounded-pill">10</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Events
+                                <span class="badge bg-primary rounded-pill">5</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts -->
+                    <div class="y2k-card sidebar-card p-3">
+                        <h4 class="y2k-subtitle mb-3">Recent Posts</h4>
+                        <div class="recent-post">
+                            <div class="recent-post-image">
+                                <img src="https://i.pinimg.com/736x/a1/80/2c/a1802cc61965140b5a13172fc6c64dd8.jpg" alt="Recent Post">
+                            </div>
+                            <div>
+                                <h5 class="recent-post-title">IVE Announces New Single "Summer Vibe"</h5>
+                                <div class="recent-post-date">May 2, 2025</div>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <div class="recent-post-image">
+                                <img src="https://i.pinimg.com/736x/cc/e9/ec/cce9ecdc812a46bc3405da5ecb3a50ec.jpg" alt="Recent Post">
+                            </div>
+                            <div>
+                                <h5 class="recent-post-title">ENHYPEN's Japan Tour Sells Out in Minutes</h5>
+                                <div class="recent-post-date">April 29, 2025</div>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <div class="recent-post-image">
+                                <img src="https://i.pinimg.com/736x/a7/0e/8e/a70e8e554aad4b858a55920ade69f505.jpg" alt="Recent Post">
+                            </div>
+                            <div>
+                                <h5 class="recent-post-title">ITZY Releases Dance Practice for New Single</h5>
+                                <div class="recent-post-date">April 27, 2025</div>
+                            </div>
+                        </div>
+                        <div class="recent-post mb-0 pb-0 border-bottom-0">
+                            <div class="recent-post-image">
+                                <img src="https://i.pinimg.com/736x/f5/c2/62/f5c2629255997412fcddc314c7ab3b4c.jpg" alt="Recent Post">
+                            </div>
+                            <div>
+                                <h5 class="recent-post-title">SEVENTEEN's New Lightstick Version Revealed</h5>
+                                <div class="recent-post-date">April 24, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="y2k-card sidebar-card p-3">
+                        <h4 class="y2k-subtitle mb-3">Popular Tags</h4>
+                        <div class="tag-cloud">
+                            <a href="#">BTS</a>
+                            <a href="#">Blackpink</a>
+                            <a href="#">NewJeans</a>
+                            <a href="#">TWICE</a>
+                            <a href="#">Stray Kids</a>
+                            <a href="#">Aespa</a>
+                            <a href="#">TXT</a>
+                            <a href="#">IVE</a>
+                            <a href="#">ENHYPEN</a>
+                            <a href="#">Comeback</a>
+                            <a href="#">Album</a>
+                            <a href="#">Lightstick</a>
+                            <a href="#">Photocard</a>
+                            <a href="#">Concert</a>
+                            <a href="#">Pre-order</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="y2k-card sidebar-card p-3">
+                        <h4 class="y2k-subtitle mb-3">Newsletter</h4>
+                        <p>Subscribe to get the latest K-pop news directly to your inbox!</p>
+                        <form>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Your email address">
+                            </div>
+                            <button type="submit" class="btn y2k-button w-100">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact" class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Drops</a></li>
+                        <li><a href="shop.html">Fan Favorites</a></li>
+                        <li><a href="shop.html#preorder">Pre-Orders</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Connect</h4>
+                    <p>Follow us for idol updates and merch drops! 💖</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4 mt-4 border-top border-secondary">
+                © 2025 KPOP CLUB. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Cart Overlay -->
+        <div class="cart-overlay" id="cart-overlay">
+            <div class="cart-sidebar" id="cart-sidebar">
+                <div class="cart-header">
+                    <h3 class="cart-title">Your Cart</h3>
+                    <button class="close-cart" id="close-cart">&times;</button>
+                </div>
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be loaded dynamically -->
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <a href="cart.html" class="btn y2k-button w-100">View Cart</a>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom JS -->
+        <script src="main.js"></script>
+        
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
+    initializeCartOverlay();
+});
+
+function updateAuthUI() {
+    const authSection = document.getElementById('auth-section');
+    const cartButton = document.getElementById('cart-button');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+
+        // Show cart when logged in
+        if (cartButton) {
+            cartButton.style.display = 'block';
+        }
+
+        authSection.innerHTML = `
+    <div class="dropdown">
+        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+    </div>
+`;
+        // Add click effect to change name color to light blue
+        const profileName = authSection.querySelector('.profile-name');
+        const userDropdown = authSection.querySelector('#userDropdown');
+
+        userDropdown.addEventListener('click', function() {
+            profileName.style.color = '#87CEEB'; // Light blue color
+        });
+
+        // Reset color when dropdown is hidden
+        userDropdown.addEventListener('blur', function() {
+            setTimeout(() => {
+                profileName.style.color = 'var(--dark)';
+            }, 200);
+        });
+
+    } else {
+        // Hide cart when not logged in
+        if (cartButton) {
+            cartButton.style.display = 'none';
+        }
+
+        authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    window.location.reload();
+}
+
+// Cart overlay functionality
+function initializeCartOverlay() {
+    const cartButton = document.getElementById('cart-button');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const closeCart = document.getElementById('close-cart');
+
+    // Open cart overlay
+    if (cartButton) {
+        cartButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (cartOverlay) {
+                cartOverlay.style.display = 'flex';
+                setTimeout(() => {
+                    cartSidebar.style.transform = 'translateX(0)';
+                }, 10);
+                updateCartOverlay();
+            }
+        });
+    }
+
+    // Close cart overlay
+    if (closeCart) {
+        closeCart.addEventListener('click', function() {
+            cartSidebar.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                cartOverlay.style.display = 'none';
+            }, 300);
+        });
+    }
+
+    // Close cart when clicking outside
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', function(e) {
+            if (e.target === cartOverlay) {
+                cartSidebar.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    cartOverlay.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    // Update cart count
+    updateCartCount();
+}
+
+function updateCartOverlay() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    
+    if (!cartItems || !cartTotal) return;
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    if (!isLoggedIn || !currentUser.id) {
+        cartItems.innerHTML = `
+            <div class="text-center py-4">
+                <div class="mb-3 fs-1">🔒</div>
+                <p>Please login to view your cart</p>
+                <a href="login.html" class="btn y2k-button">Login Now</a>
+            </div>
+        `;
+        cartTotal.textContent = 'Rp 0';
+        return;
+    }
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="text-center py-4">
+                <div class="mb-3 fs-1">🛒</div>
+                <p>Your cart is empty</p>
+            </div>
+        `;
+        cartTotal.textContent = 'Rp 0';
+    } else {
+        let itemsHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            itemsHTML += `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">Rp ${formatPrice(item.price)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">Remove</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        cartItems.innerHTML = itemsHTML;
+        cartTotal.textContent = `Rp ${formatPrice(total)}`;
+
+        // Add event listeners for cart actions
+        addCartEventListeners();
+    }
+}
+
+function addCartEventListeners() {
+    // Increase quantity
+    document.querySelectorAll('.increase-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            updateCartItemQuantity(id, 1);
+        });
+    });
+
+    // Decrease quantity
+    document.querySelectorAll('.decrease-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            updateCartItemQuantity(id, -1);
+        });
+    });
+
+    // Remove item
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            removeCartItem(id);
+        });
+    });
+}
+
+function updateCartItemQuantity(id, change) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (!currentUser.id) return;
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    const item = cart.find(item => item.id === id);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            cart = cart.filter(item => item.id !== id);
+        }
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+        updateCartOverlay();
+        updateCartCount();
+    }
+}
+
+function removeCartItem(id) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (!currentUser.id) return;
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+    updateCartOverlay();
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    if (!cartCount) return;
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    if (!isLoggedIn || !currentUser.id) {
+        cartCount.textContent = '0';
+        return;
+    }
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = totalItems;
+}
+
+function formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+</script>
+</body>
+</html>

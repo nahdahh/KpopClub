@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Payment Process</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .payment-container {
+            background-color: #ffffff;
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            box-shadow: 4px 4px 0 var(--dark);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .countdown-timer {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 2px solid var(--dark);
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .payment-instructions {
+            background-color: var(--light);
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .bank-info {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .copy-button {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .order-summary {
+            background-color: var(--light);
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .qr-code {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .payment-steps {
+            counter-reset: step-counter;
+        }
+
+        .payment-step {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .payment-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--primary);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .timer-display {
+                font-size: 1.5rem;
+            }
+            
+            .payment-container {
+                padding: 1rem;
+            }
+            
+            .order-summary {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+                    <!-- Authentication Section -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Complete Your Payment • Secure Transaction • 24/7 Support ✨
+    </div>
+    
+    <!-- Payment Process Section -->
+    <section class="py-4">
+        <div class="container">
+            <h1 class="y2k-title text-center mb-4">Complete Payment</h1>
+            
+            <!-- Countdown Timer -->
+            <div class="countdown-timer">
+                <div class="mb-2">
+                    <i class="fas fa-clock me-2"></i>
+                    <strong>Payment Deadline</strong>
+                </div>
+                <div class="timer-display" id="countdown-timer">24:00:00</div>
+                <div class="mt-2 small">Complete your payment before the timer expires</div>
+            </div>
+            
+            <div class="row">
+                <!-- Payment Instructions -->
+                <div class="col-lg-8">
+                    <div class="payment-container">
+                        <h3 class="y2k-subtitle mb-3">
+                            <i class="fas fa-credit-card me-2"></i>Payment Instructions
+                        </h3>
+                        
+                        <div id="payment-instructions">
+                            <!-- Payment instructions will be loaded here -->
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <button class="btn y2k-button btn-lg px-4" id="confirm-payment-btn">
+                                <i class="fas fa-check me-2"></i>I Have Completed Payment
+                            </button>
+                        </div>
+                        
+                        <div class="mt-3 text-center">
+                            <a href="history_transaksi.html" class="text-decoration-none">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Order History
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="order-summary">
+                        <h3 class="y2k-subtitle mb-3">Order Summary</h3>
+                        
+                        <div class="mb-3">
+                            <strong>Order ID:</strong> <span id="order-id"></span>
+                        </div>
+                        
+                        <div id="order-items" class="mb-3">
+                            <!-- Order items will be loaded here -->
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span id="order-subtotal">Rp 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span id="order-shipping">Rp 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tax (10%)</span>
+                            <span id="order-tax">Rp 0</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="d-flex justify-content-between mb-3">
+                            <strong style="font-size: 1.1rem;">Total Payment</strong>
+                            <strong id="order-total" style="font-size: 1.1rem; color: var(--primary);">Rp 0</strong>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <small>Please transfer the exact amount to avoid delays in verification.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Drops</a></li>
+                        <li><a href="shop.html">Fan Favorites</a></li>
+                        <li><a href="shop.html#preorder">Pre-Orders</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Connect</h4>
+                    <p>Follow us for idol updates and merch drops! 💖</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4 mt-4 border-top border-secondary">
+                © 2025 KPOP CLUB. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        let countdownInterval;
+        let currentOrder;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                alert('Please login to access this page.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get order ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            
+            if (!orderId) {
+                alert('Invalid order ID.');
+                window.location.href = 'history_transaksi.html';
+                return;
+            }
+
+            // Load order details
+            loadOrderDetails(orderId);
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Update auth UI
+            updateAuthUI();
+        });
+
+        function loadOrderDetails(orderId) {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            
+            const order = transactions.find(t => t.id === orderId);
+            
+            if (!order) {
+                alert('Order not found.');
+                window.location.href = 'history_transaksi.html';
+                return;
+            }
+
+            currentOrder = order;
+            
+            // Check if payment is expired
+            const now = new Date();
+            const deadline = new Date(order.paymentDeadline);
+            
+            if (now > deadline) {
+                alert('Payment deadline has expired. This order has been cancelled.');
+                // Update order status to cancelled
+                order.status = 'Cancelled';
+                localStorage.setItem(userTransactionKey, JSON.stringify(transactions));
+                window.location.href = 'history_transaksi.html';
+                return;
+            }
+
+            // Display order summary
+            document.getElementById('order-id').textContent = order.id;
+            
+            let itemsHTML = '';
+            order.items.forEach(item => {
+                itemsHTML += `
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="${item.image}" alt="${item.name}" 
+                             style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" 
+                             class="me-2">
+                        <div class="flex-grow-1">
+                            <div style="font-size: 0.9rem;">${item.name}</div>
+                            <div class="text-muted small">Qty: ${item.quantity}</div>
+                        </div>
+                        <div class="fw-bold">Rp ${formatPrice(item.price * item.quantity)}</div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('order-items').innerHTML = itemsHTML;
+            document.getElementById('order-subtotal').textContent = `Rp ${formatPrice(order.subtotal)}`;
+            document.getElementById('order-shipping').textContent = `Rp ${formatPrice(order.shipping)}`;
+            document.getElementById('order-tax').textContent = `Rp ${formatPrice(order.tax)}`;
+            document.getElementById('order-total').textContent = `Rp ${formatPrice(order.total)}`;
+
+            // Load payment instructions
+            loadPaymentInstructions(order.paymentMethod, order.total);
+            
+            // Start countdown timer
+            startCountdown(deadline);
+        }
+
+        function loadPaymentInstructions(paymentMethod, amount) {
+            const instructionsContainer = document.getElementById('payment-instructions');
+            let instructionsHTML = '';
+
+            switch(paymentMethod) {
+                case 'bank-transfer':
+                    instructionsHTML = `
+                        <div class="payment-instructions">
+                            <h5><i class="fas fa-university me-2"></i>Bank Transfer Instructions</h5>
+                            <div class="payment-steps">
+                                <div class="payment-step">Transfer to one of our bank accounts below</div>
+                                <div class="payment-step">Use the exact amount: <strong>Rp ${formatPrice(amount)}</strong></div>
+                                <div class="payment-step">Keep your transfer receipt</div>
+                                <div class="payment-step">Click "I Have Completed Payment" button</div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="bank-info">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>BCA</strong><br>
+                                                <span>1234567890</span><br>
+                                                <small>KPOP CLUB INDONESIA</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary copy-button" onclick="copyToClipboard('1234567890')">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="bank-info">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>BNI</strong><br>
+                                                <span>0987654321</span><br>
+                                                <small>KPOP CLUB INDONESIA</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary copy-button" onclick="copyToClipboard('0987654321')">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'e-wallet':
+                    instructionsHTML = `
+                        <div class="payment-instructions">
+                            <h5><i class="fas fa-mobile-alt me-2"></i>E-Wallet Payment Instructions</h5>
+                            <div class="payment-steps">
+                                <div class="payment-step">Open your e-wallet app (OVO, GoPay, DANA, ShopeePay)</div>
+                                <div class="payment-step">Scan the QR code below or use the phone number</div>
+                                <div class="payment-step">Enter amount: <strong>Rp ${formatPrice(amount)}</strong></div>
+                                <div class="payment-step">Complete the payment and save the receipt</div>
+                                <div class="payment-step">Click "I Have Completed Payment" button</div>
+                            </div>
+                            
+                            <div class="qr-code">
+                                <div class="mb-3">
+                                    <i class="fas fa-qrcode" style="font-size: 8rem; color: #ccc;"></i>
+                                </div>
+                                <div>
+                                    <strong>Phone Number:</strong> 081234567890<br>
+                                    <strong>Name:</strong> KPOP CLUB INDONESIA
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'virtual-account':
+                    const vaNumber = '8808' + currentOrder.id.slice(-6);
+                    instructionsHTML = `
+                        <div class="payment-instructions">
+                            <h5><i class="fas fa-receipt me-2"></i>Virtual Account Instructions</h5>
+                            <div class="payment-steps">
+                                <div class="payment-step">Go to ATM, mobile banking, or internet banking</div>
+                                <div class="payment-step">Select "Transfer" or "Payment"</div>
+                                <div class="payment-step">Enter Virtual Account number: <strong>${vaNumber}</strong></div>
+                                <div class="payment-step">Enter amount: <strong>Rp ${formatPrice(amount)}</strong></div>
+                                <div class="payment-step">Complete the transaction and save the receipt</div>
+                                <div class="payment-step">Click "I Have Completed Payment" button</div>
+                            </div>
+                            
+                            <div class="bank-info text-center">
+                                <div class="mb-2">
+                                    <strong>Virtual Account Number</strong>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <span style="font-size: 1.5rem; font-weight: bold; font-family: monospace;">${vaNumber}</span>
+                                    <button class="btn btn-outline-primary copy-button ms-2" onclick="copyToClipboard('${vaNumber}')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="mt-2 small text-muted">
+                                    Available for: BCA, BNI, BRI, Mandiri
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'credit-card':
+                    instructionsHTML = `
+                        <div class="payment-instructions">
+                            <h5><i class="fas fa-credit-card me-2"></i>Credit/Debit Card Payment</h5>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Credit card payment gateway will be integrated soon. Please use other payment methods for now.
+                            </div>
+                            <div class="text-center">
+                                <a href="payment.html?orderId=${currentOrder.id}" class="btn btn-outline-primary">
+                                    <i class="fas fa-arrow-left me-2"></i>Choose Different Payment Method
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            instructionsContainer.innerHTML = instructionsHTML;
+        }
+
+        function startCountdown(deadline) {
+            countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = deadline.getTime() - now;
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown-timer').innerHTML = "EXPIRED";
+                    alert('Payment deadline has expired. This order has been cancelled.');
+                    window.location.href = 'history_transaksi.html';
+                    return;
+                }
+
+                const hours = Math.floor(distance / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown-timer').innerHTML = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function setupEventListeners() {
+            document.getElementById('confirm-payment-btn').addEventListener('click', function() {
+                confirmPayment();
+            });
+        }
+
+        function confirmPayment() {
+            if (!confirm('Have you completed the payment? Please make sure you have transferred the exact amount.')) {
+                return;
+            }
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const userTransactionKey = `userTransactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionKey)) || [];
+            
+            // Update order status
+            const orderIndex = transactions.findIndex(t => t.id === currentOrder.id);
+            if (orderIndex !== -1) {
+                transactions[orderIndex].status = 'Waiting for Confirmation';
+                transactions[orderIndex].paymentConfirmedAt = new Date().toISOString();
+                localStorage.setItem(userTransactionKey, JSON.stringify(transactions));
+            }
+
+            // Update global transactions
+            const allTransactions = JSON.parse(localStorage.getItem('allTransactions')) || [];
+            const globalIndex = allTransactions.findIndex(t => t.id === currentOrder.id);
+            if (globalIndex !== -1) {
+                allTransactions[globalIndex].status = 'Waiting for Confirmation';
+                allTransactions[globalIndex].paymentConfirmedAt = new Date().toISOString();
+                localStorage.setItem('allTransactions', JSON.stringify(allTransactions));
+            }
+
+            alert(`Payment confirmation received!
+
+Order #${currentOrder.id} status has been updated to "Waiting for Confirmation".
+
+Our team will verify your payment within 1-3 business hours.
+You will receive a notification once your payment is confirmed.
+
+Thank you for shopping with KPOP CLUB! 💖`);
+
+            window.location.href = 'history_transaksi.html';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard: ' + text);
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Copied to clipboard: ' + text);
+            });
+        }
+
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function updateAuthUI() {
+            const authSection = document.getElementById('auth-section');
+            const cartButton = document.getElementById('cart-button');
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+                
+                if (cartButton) {
+                    cartButton.style.display = 'block';
+                }
+                
+                authSection.innerHTML = `
+                <div class="dropdown">
+                    <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                        <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+                        <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+                        <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+                        <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+                        <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-archive me-2"></i>Arsip</a></li>
+                        ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            `;
+
+            const profileName = authSection.querySelector('.profile-name');
+            const userDropdown = authSection.querySelector('#userDropdown');
+
+            userDropdown.addEventListener('click', function() {
+                profileName.style.color = '#87CEEB';
+            });
+
+            userDropdown.addEventListener('blur', function() {
+                setTimeout(() => {
+                    profileName.style.color = 'var(--dark)';
+                }, 200);
+            });
+                
+            } else {
+                if (cartButton) {
+                    cartButton.style.display = 'none';
+                }
+                
+                authSection.innerHTML = `
+                    <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                        Login
+                    </a>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'Landingpage.html';
+        }
+    </script>
+</body>
+</html>

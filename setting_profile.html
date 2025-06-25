@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Profile Settings</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .profile-container {
+            background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .profile-header::before {
+            content: "✨";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: var(--sparkle);
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--chrome);
+            border: 3px solid var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: var(--primary);
+            box-shadow: 4px 4px 0 var(--dark);
+        }
+        
+        .section-card {
+            background: var(--light);
+            border: 2px solid var(--dark);
+            border-radius: 12px;
+            box-shadow: 6px 6px 0 var(--dark);
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .section-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--chrome);
+        }
+        
+        .section-header {
+            background: var(--bg-light);
+            padding: 20px 25px;
+            border-bottom: 2px solid var(--primary);
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-body {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .y2k-input {
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-family: "Nunito", sans-serif;
+            background: var(--light);
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 0 var(--dark);
+        }
+        
+        .y2k-input:focus {
+            border-color: var(--primary);
+            box-shadow: 3px 3px 0 var(--primary);
+            outline: none;
+            background: #fafbff;
+        }
+        
+        .y2k-input:read-only {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+        
+        .input-help {
+            font-size: 12px;
+            color: var(--secondary);
+            margin-top: 5px;
+            font-family: "Nunito", sans-serif;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--chrome);
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .stat-value {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-family: "Nunito", sans-serif;
+            font-size: 12px;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn-primary-y2k {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: 2px solid var(--dark);
+            color: var(--light);
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            box-shadow: 4px 4px 0 var(--dark);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary-y2k:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 0 var(--dark);
+            color: var(--light);
+        }
+        
+        .btn-secondary-y2k {
+            background: var(--light);
+            border: 2px solid var(--dark);
+            color: var(--dark);
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            box-shadow: 4px 4px 0 var(--dark);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary-y2k:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 0 var(--dark);
+            color: var(--dark);
+        }
+        
+        .alert-y2k {
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 3px 3px 0 var(--dark);
+        }
+        
+        .alert-success-y2k {
+            background: linear-gradient(45deg, #d4edda, #ffffff);
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .alert-error-y2k {
+            background: linear-gradient(45deg, #f8d7da, #ffffff);
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .decorative-element {
+            position: absolute;
+            font-size: 14px;
+            color: var(--sparkle);
+            opacity: 0.7;
+        }
+        
+        .deco-1 { top: 20px; right: 20px; }
+        .deco-2 { bottom: 20px; left: 20px; }
+        .deco-3 { top: 50%; right: 15px; transform: translateY(-50%); }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary-y2k,
+            .btn-secondary-y2k {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="Landingpage.html">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="article.html">Article</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+                    <!-- Authentication Section -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h1 class="y2k-title">Profile Settings</h1>
+                <p class="y2k-subtitle">Manage your account information</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Alert Container -->
+                    <div id="alert-container"></div>
+
+                    <!-- Account Statistics -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-chart-line"></i>
+                                Account Overview
+                            </h3>
+                        </div>
+                        <div class="section-body">
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="totalOrdersDisplay">0</span>
+                                    <span class="stat-label">Total Orders</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="memberSinceDisplay">2024</span>
+                                    <span class="stat-label">Member Since</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decorative-element deco-1">⭐</div>
+                        <div class="decorative-element deco-2">💫</div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-user-edit"></i>
+                                Personal Information
+                            </h3>
+                        </div>
+                        <div class="section-body">
+                            <form id="profileForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control y2k-input" id="firstName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control y2k-input" id="lastName" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control y2k-input" id="email" readonly>
+                                    <div class="input-help">
+                                        <i class="fas fa-info-circle"></i> Email address cannot be changed
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="decorative-element deco-3">✨</div>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-shield-alt"></i>
+                                Security Settings
+                            </h3>
+                        </div>
+                        <div class="section-body">
+                            <div class="form-group">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control y2k-input" id="currentPassword" placeholder="Enter your current password">
+                                <div class="input-help">
+                                    <i class="fas fa-lock"></i> Required to save any changes
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="newPassword" class="form-label">New Password</label>
+                                        <input type="password" class="form-control y2k-input" id="newPassword" placeholder="Leave blank to keep current">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                        <input type="password" class="form-control y2k-input" id="confirmPassword" placeholder="Confirm new password">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decorative-element deco-1">🔒</div>
+                        <div class="decorative-element deco-2">🛡️</div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button type="submit" form="profileForm" class="btn-primary-y2k">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                        <a href="history_transaksi.html" class="btn-secondary-y2k">
+                            <i class="fas fa-history"></i>
+                            Order History
+                        </a>
+                        <a href="Landingpage.html" class="btn-secondary-y2k">
+                            <i class="fas fa-home"></i>
+                            Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Profile Settings functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (!isLoggedIn || !currentUser.id) {
+                // Redirect to login if not authenticated
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data into form
+            loadUserData(currentUser);
+            
+            // Update auth UI
+            updateAuthUI();
+            
+            // Handle form submission
+            document.getElementById('profileForm').addEventListener('submit', handleProfileUpdate);
+        });
+
+        function loadUserData(user) {
+            document.getElementById('firstName').value = user.firstName || '';
+            document.getElementById('lastName').value = user.lastName || '';
+            document.getElementById('email').value = user.email || '';
+            
+            // Update statistics
+            document.getElementById('totalOrdersDisplay').textContent = user.orders || 0;
+            document.getElementById('memberSinceDisplay').textContent = user.joinedDate || '2024';
+        }
+
+        function handleProfileUpdate(e) {
+            e.preventDefault();
+            
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate current password
+            if (!currentPassword) {
+                showAlert('Please enter your current password to make changes.', 'error');
+                return;
+            }
+            
+            if (currentPassword !== currentUser.password) {
+                showAlert('Current password is incorrect.', 'error');
+                return;
+            }
+            
+            // Validate new password if provided
+            if (newPassword) {
+                if (newPassword.length < 6) {
+                    showAlert('New password must be at least 6 characters long.', 'error');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    showAlert('New passwords do not match.', 'error');
+                    return;
+                }
+            }
+            
+            // Update user data
+            const updatedUser = {
+                ...currentUser,
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                name: document.getElementById('firstName').value.trim() + ' ' + document.getElementById('lastName').value.trim(),
+            };
+            
+            // Update password if new one provided
+            if (newPassword) {
+                updatedUser.password = newPassword;
+            }
+            
+            // Update in users array
+            const users = JSON.parse(localStorage.getItem('kpopUsers')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                users[userIndex] = updatedUser;
+                localStorage.setItem('kpopUsers', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                
+                showAlert('Profile updated successfully! Your changes have been saved. ✨', 'success');
+                
+                // Clear password fields
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                
+                // Update auth UI with new name
+                setTimeout(() => {
+                    updateAuthUI();
+                }, 1000);
+                
+            } else {
+                showAlert('Error updating profile. Please try again.', 'error');
+            }
+        }
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'success' ? 'alert-success-y2k' : 'alert-error-y2k';
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle';
+            
+            alertContainer.innerHTML = `
+                <div class="alert-y2k ${alertClass}">
+                    <i class="fas ${icon} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" onclick="this.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                const alert = alertContainer.querySelector('.alert-y2k');
+                if (alert) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        function updateAuthUI() {
+            const authSection = document.getElementById('auth-section');
+            const cartButton = document.getElementById('cart-button');
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+                
+                // Show cart when logged in
+                if (cartButton) {
+                    cartButton.style.display = 'block';
+                }
+                
+                authSection.innerHTML = `
+                    <div class="dropdown">
+                        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+                            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+                            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+                            <li><a class="dropdown-item" href="setting_profile.html" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+                            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                `;
+
+                // Add click effect to change name color to light blue
+                const profileName = authSection.querySelector('.profile-name');
+                const userDropdown = authSection.querySelector('#userDropdown');
+
+                userDropdown.addEventListener('click', function() {
+                    profileName.style.color = '#87CEEB'; // Light blue color
+                });
+
+                // Reset color when dropdown is hidden
+                userDropdown.addEventListener('blur', function() {
+                    setTimeout(() => {
+                        profileName.style.color = 'var(--dark)';
+                    }, 200);
+                });
+                
+            } else {
+                // Hide cart when not logged in
+                if (cartButton) {
+                    cartButton.style.display = 'none';
+                }
+                
+                authSection.innerHTML = `
+                    <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                        Login
+                    </a>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            updateAuthUI();
+            window.location.href = 'Landingpage.html';
+        }
+    </script>
+</body>
+</html>

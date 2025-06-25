@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Ultimate K-pop Merch</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+/* Styling navbar aktif */
+.navbar-nav .nav-link.active {
+    font-weight: bold !important;
+}
+
+/* CSS khusus untuk efek 2 polaroid bertumpuk - lebih mirip referensi */
+.hero-image-stack {
+    position: relative;
+    height: 450px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Polaroid pertama (di belakang, lebih besar) - posisi seperti referensi */
+.polaroid-stack-1 {
+    position: absolute;
+    width: 280px;
+    height: 350px;
+    background: #ffffff;
+    padding: 15px 15px 50px 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--dark);
+    transform: rotate(-8deg);
+    z-index: 1;
+    top: 50px;
+    left: 50px;
+    transition: all 0.3s ease;
+}
+
+/* Polaroid kedua (di depan, overlap) - posisi seperti referensi */
+.polaroid-stack-2 {
+    position: absolute;
+    width: 240px;
+    height: 300px;
+    background: #ffffff;
+    padding: 12px 12px 45px 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--dark);
+    transform: rotate(12deg);
+    z-index: 2;
+    top: 80px;
+    right: 80px;
+    transition: all 0.3s ease;
+}
+
+/* Gambar di dalam polaroid */
+.polaroid-stack-1 img,
+.polaroid-stack-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+/* Caption polaroid */
+.polaroid-caption-stack {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Efek hover untuk setiap polaroid */
+.polaroid-stack-1:hover {
+    transform: rotate(-4deg) scale(1.03);
+    z-index: 3;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.polaroid-stack-2:hover {
+    transform: rotate(8deg) scale(1.03);
+    z-index: 3;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Responsive untuk tablet */
+@media (max-width: 991px) {
+    .hero-image-stack {
+        height: 400px;
+    }
+    
+    .polaroid-stack-1 {
+        width: 250px;
+        height: 320px;
+        left: 30px;
+        top: 40px;
+    }
+    
+    .polaroid-stack-2 {
+        width: 210px;
+        height: 270px;
+        right: 60px;
+        top: 70px;
+    }
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 767px) {
+    .hero-image-stack {
+        height: 350px;
+    }
+    
+    .polaroid-stack-1 {
+        width: 220px;
+        height: 280px;
+        left: 20px;
+        top: 30px;
+    }
+    
+    .polaroid-stack-2 {
+        width: 190px;
+        height: 240px;
+        right: 40px;
+        top: 60px;
+    }
+    
+    .polaroid-caption-stack {
+        font-size: 11px;
+    }
+}
+
+/* Responsive untuk mobile kecil */
+@media (max-width: 575px) {
+    .hero-image-stack {
+        height: 320px;
+    }
+    
+    .polaroid-stack-1 {
+        width: 200px;
+        height: 260px;
+        left: 10px;
+        top: 20px;
+    }
+    
+    .polaroid-stack-2 {
+        width: 170px;
+        height: 220px;
+        right: 30px;
+        top: 50px;
+    }
+}
+</style>
+</head>
+<body class="landing-page">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="article.html">Article</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Bagian Autentikasi -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Akan diisi oleh JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Ultimate K-pop Merch Drop • 2025 Exclusive ✨
+    </div>
+    
+    <!-- Banner Y2K -->
+    <div class="y2k-banner">
+        K-pop Club • Est. 2025
+    </div>
+    
+    <!-- Bagian Hero -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="hero-content">
+                        <div class="hero-paper">
+                            <div class="y2k-tab">Fan Zone</div>
+                            <div class="retro-text mb-3">K-POP CLUB</div>
+                            <h1 class="y2k-title mb-4">Welcome to Kpop Club!</h1>
+                            <p class="lead mb-4">Your one-stop shop for exclusive K-pop merch! From lightsticks to photocards, vibe with your fave idols in ultimate style~</p>
+                            
+                            <a href="shop.html" class="btn y2k-button px-4 py-2">Shop Now! 💖</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Container untuk 2 polaroid bertumpuk -->
+                    <div class="hero-image-stack">
+                        <!-- Polaroid pertama (di belakang, lebih besar) -->
+                        <div class="polaroid-stack-1">
+                            <img src="https://i.pinimg.com/736x/47/d7/50/47d7502bb2ce822697b7465dc369ca07.jpg" alt="K-pop Lightstick" class="img-fluid">
+                            <div class="polaroid-caption-stack">New arrivals! ✨</div>
+                        </div>
+                        
+                        <!-- Polaroid kedua (di depan, overlap) -->
+                        <div class="polaroid-stack-2">
+                            <img src="https://i.pinimg.com/736x/79/5a/e6/795ae63a184d95af035d088cbcb7af4e.jpg" alt="K-pop Photocard" class="img-fluid">
+                            <div class="polaroid-caption-stack">Collect them! 💕</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="deco-star" style="top: 20%; left: 10%;">✨</div>
+        <div class="deco-star" style="bottom: 15%; right: 10%;">✨</div>
+    </section>
+    
+    <!-- Bagian Produk Unggulan -->
+    <section id="featured" class="featured-products">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="y2k-title">Fan Favorites</h2>
+            </div>
+            
+            <div class="product-grid">
+                <div class="product-card" data-artist="bts" data-category="lightsticks">
+                    <div class="product-image">
+                        <div class="product-badge">New</div>
+                        <img src="https://i.pinimg.com/736x/b9/1b/29/b91b29537e60f68f8d1c7a4b444ec243.jpg" alt="BTS Lightstick" class="img-fluid">
+                    </div>
+                    <div class="product-info">
+                        <h5 class="product-title">BTS Lightstick Ver. 4</h5>
+                        <div class="product-price">Rp 799.000</div>
+                        <div class="product-rating">
+                            ★★★★★
+                        </div>
+                        <div class="product-button">
+                            <button class="btn y2k-button w-100" data-id="1" data-name="BTS Lightstick Ver. 4" data-price="799000" data-image="https://via.placeholder.com/300/200">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-artist="blackpink" data-category="apparel">
+                    <div class="product-image">
+                        <img src="https://i.pinimg.com/736x/f7/1e/d9/f71ed91b585c0eeed985f81fff695a80.jpg" alt="Blackpink Hoodie" class="img-fluid">
+                    </div>
+                    <div class="product-info">
+                        <h5 class="product-title">Blackpink Logo Hoodie</h5>
+                        <div class="product-price">Rp 599.000</div>
+                        <div class="product-rating">
+                            ★★★★★
+                        </div>
+                        <div class="product-button">
+                            <button class="btn y2k-button w-100" data-id="2" data-name="Blackpink Logo Hoodie" data-price="599000" data-image="https://via.placeholder.com/300/200">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-artist="stray-kids" data-category="albums">
+                    <div class="product-image">
+                        <div class="product-badge">Hot</div>
+                        <img src="https://i.pinimg.com/736x/33/64/49/336449613807266bee88c09e15450a21.jpg" alt="Stray Kids Album" class="img-fluid">
+                    </div>
+                    <div class="product-info">
+                        <h5 class="product-title">Stray Kids - ATE Album</h5>
+                        <div class="product-price">Rp 349.000</div>
+                        <div class="product-rating">
+                            ★★★★★
+                        </div>
+                        <div class="product-button">
+                            <button class="btn y2k-button w-100" data-id="3" data-name="Stray Kids - ATE Album" data-price="349000" data-image="https://via.placeholder.com/300/200">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-artist="txt" data-category="photocards">
+                    <div class="product-image">
+                        <img src="https://i.pinimg.com/736x/ab/6a/0f/ab6a0fe95f93fa898ae51da9e6e9cdd9.jpg" alt="TXT Photocard Set" class="img-fluid">
+                    </div>
+                    <div class="product-info">
+                        <h5 class="product-title">TXT Photocard Set</h5>
+                        <div class="product-price">Rp 199.000</div>
+                        <div class="product-rating">
+                            ★★★★★
+                        </div>
+                        <div class="product-button">
+                            <button class="btn y2k-button w-100" data-id="4" data-name="TXT Photocard Set" data-price="199000" data-image="https://via.placeholder.com/300/200">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="shop.html" class="btn y2k-button px-4 py-2">View All Products</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bagian About -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="collector-box">
+                        <img src="https://i.pinimg.com/736x/a3/d7/6e/a3d76e9cd8146966c4f0b7cacc819f6d.jpg" alt="Kpop Club Store" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="y2k-paper p-4">
+                        <h2 class="y2k-title mb-4">About Our Club</h2>
+                        <h3 class="y2k-subtitle mb-3">Your K-pop Obsession Hub</h3>
+                        <p class="mb-4">Kpop Club is the ultimate e-commerce destination for K-pop fans! We bring you exclusive merch, from albums to apparel, curated for true stans.</p>
+                        <div class="sticker mb-4">
+                            <span class="sticker-text">♡ JOIN OUR CLUB TODAY! ♡</span>
+                        </div>
+                        <a href="about.html" class="btn y2k-button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bagian Testimoni -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <div class="retro-text">FAN QUOTES</div>
+                <h2 class="y2k-title">What Our Fans Say</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="y2k-card testimonial-card">
+                        <p class="testimonial-text">"Kpop Club has the best merch! My BTS lightstick arrived super fast, and the quality is amazing! 💜"</p>
+                        <div class="testimonial-author sticker-text">— Lisa, BTS ARMY</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="y2k-card testimonial-card">
+                        <p class="testimonial-text">"Obsessed with my Blackpink hoodie! The Y2K vibe of this site is so fun, and the prices are great!"</p>
+                        <div class="testimonial-author sticker-text">— Sarah, BLINK</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="y2k-card testimonial-card">
+                        <p class="testimonial-text">"The photocard set I got was perfect, and the packaging was so cute! Definitely shopping here again!"</p>
+                        <div class="testimonial-author sticker-text">— Rina, STAY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bagian Newsletter -->
+    <section id="join" class="newsletter-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="newsletter-paper">
+                        <h2 class="y2k-title mb-4">Join Member Kpop Club</h2>
+                        <p class="mb-4">Be part of the Kpop Club squad! Get exclusive discounts, early access to merch drops, and VIP updates on your fave idols! 💌</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control newsletter-input" placeholder="Your email address">
+                            <button class="btn y2k-button newsletter-button" type="button">Join Now! ✨</button>
+                        </div>
+                        <div class="sticker-text mt-3">SIGN UP TODAY!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="deco-star" style="top: 15%; left: 5%;">✨</div>
+        <div class="deco-star" style="bottom: 10%; right: 5%;">✨</div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact" class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Drops</a></li>
+                        <li><a href="shop.html">Fan Favorites</a></li>
+                        <li><a href="shop.html#preorder">Pre-Orders</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Connect</h4>
+                    <p>Follow us for idol updates and merch drops! 💖</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center copyright">
+                © 2025 KPOP CLUB. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay Keranjang -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h3 class="cart-title">Your Cart</h3>
+                <button class="close-cart" id="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Item keranjang akan dimuat secara dinamis -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">Rp 0</span>
+            </div>
+            <a href="cart.html" class="btn y2k-button w-100">View Cart</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+    <script>
+    // Fungsi autentikasi
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inisialisasi user default terlebih dahulu
+        initializeDefaultUsers();
+        updateAuthUI();
+        
+        // Fungsi keranjang
+        initializeCartOverlay();
+    });
+
+    function initializeDefaultUsers() {
+        const existingUsers = JSON.parse(localStorage.getItem('kpopUsers')) || [];
+        
+        // Jika tidak ada user, buat user admin default
+        if (existingUsers.length === 0) {
+            const defaultAdmin = {
+                id: 'admin-001',
+                firstName: 'Admin',
+                lastName: '',
+                name: 'Admin',
+                email: 'admin@example.com',
+                password: 'admin',
+                role: 'admin',
+                status: 'active',
+                joinedDate: new Date().toLocaleDateString('id-ID'),
+                orders: 0
+            };
+        
+            existingUsers.push(defaultAdmin);
+            localStorage.setItem('kpopUsers', JSON.stringify(existingUsers));
+            console.log('User admin default dibuat: admin@example.com / admin');
+        }
+    }
+
+    function updateAuthUI() {
+        const authSection = document.getElementById('auth-section');
+        const cartButton = document.getElementById('cart-button');
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        if (isLoggedIn) {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+            
+            // Tampilkan keranjang saat login
+            if (cartButton) {
+                cartButton.style.display = 'block';
+            }
+            
+             authSection.innerHTML = `
+    <div class="dropdown">
+        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+    </div>
+`;
+            // Tambahkan efek klik untuk mengubah warna nama menjadi biru muda
+            const profileName = authSection.querySelector('.profile-name');
+            const userDropdown = authSection.querySelector('#userDropdown');
+
+            userDropdown.addEventListener('click', function() {
+                profileName.style.color = '#87CEEB'; // Warna biru muda
+            });
+
+            // Reset warna saat dropdown disembunyikan
+            userDropdown.addEventListener('blur', function() {
+                setTimeout(() => {
+                    profileName.style.color = 'var(--dark)';
+                }, 200);
+            });
+            
+        } else {
+            // Sembunyikan keranjang saat tidak login
+            if (cartButton) {
+                cartButton.style.display = 'none';
+            }
+            
+            authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        updateAuthUI();
+        window.location.reload();
+    }
+
+    // Fungsi overlay keranjang
+    function initializeCartOverlay() {
+        const cartButton = document.getElementById('cart-button');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCart = document.getElementById('close-cart');
+
+        // Buka overlay keranjang
+        if (cartButton) {
+            cartButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (cartOverlay) {
+                    cartOverlay.style.display = 'flex';
+                    setTimeout(() => {
+                        cartSidebar.style.transform = 'translateX(0)';
+                    }, 10);
+                    updateCartOverlay();
+                }
+            });
+        }
+
+        // Tutup overlay keranjang
+        if (closeCart) {
+            closeCart.addEventListener('click', function() {
+                cartSidebar.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    cartOverlay.style.display = 'none';
+                }, 300);
+            });
+        }
+
+        // Tutup keranjang saat klik di luar
+        if (cartOverlay) {
+            cartOverlay.addEventListener('click', function(e) {
+                if (e.target === cartOverlay) {
+                    cartSidebar.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        cartOverlay.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Update jumlah keranjang dan overlay
+        updateCartCount();
+        
+        // Tambahkan event listener ke tombol produk
+        addProductEventListeners();
+    }
+
+    function addProductEventListeners() {
+        // Tambahkan event listener ke tombol tambah ke keranjang
+        document.querySelectorAll('.y2k-button[data-id]').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseInt(this.getAttribute('data-price'));
+                const image = this.getAttribute('data-image');
+                
+                addToCart(id, name, price, image);
+                showAddedToCartAnimation(this);
+            });
+        });
+    }
+
+    function addToCart(id, name, price, image) {
+        // Cek apakah user sudah login
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        if (!isLoggedIn || !currentUser.id) {
+            // Tampilkan alert login diperlukan
+            showLoginRequiredAlert();
+            return;
+        }
+
+        // Dapatkan keranjang khusus user
+        const userCartKey = `kpopCart_${currentUser.id}`;
+        const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+        // Cek apakah item sudah ada di keranjang
+        const existingItem = cart.find(item => item.id === id);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id,
+                name,
+                price,
+                image,
+                quantity: 1,
+                addedDate: new Date().toISOString(),
+            });
+        }
+
+        // Simpan ke keranjang khusus user
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+
+        // Update UI
+        updateCartCount();
+        updateCartOverlay();
+
+        // Tampilkan pesan sukses
+        showCartSuccessAlert(name);
+    }
+
+    function updateCartOverlay() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        
+        if (!cartItems || !cartTotal) return;
+
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        if (!isLoggedIn || !currentUser.id) {
+            cartItems.innerHTML = `
+            <div class="text-center py-4">
+                <div class="mb-3 fs-1">🔒</div>
+                <p>Please login to view your cart</p>
+                <a href="login.html" class="btn y2k-button">Login Now</a>
+            </div>
+        `;
+            cartTotal.textContent = 'Rp 0';
+            return;
+        }
+
+        const userCartKey = `kpopCart_${currentUser.id}`;
+        const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+        if (cart.length === 0) {
+            cartItems.innerHTML = `
+            <div class="text-center py-4">
+                <div class="mb-3 fs-1">🛒</div>
+                <p>Your cart is empty</p>
+            </div>
+        `;
+            cartTotal.textContent = 'Rp 0';
+        } else {
+            let itemsHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                itemsHTML += `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">Rp ${formatPrice(item.price)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">Remove</button>
+                    </div>
+                </div>
+            `;
+            });
+
+            cartItems.innerHTML = itemsHTML;
+            cartTotal.textContent = `Rp ${formatPrice(total)}`;
+
+            // Tambahkan event listener untuk aksi keranjang
+            addCartEventListeners();
+        }
+    }
+
+    function addCartEventListeners() {
+        // Tambah jumlah
+        document.querySelectorAll('.increase-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                updateCartItemQuantity(id, 1);
+            });
+        });
+
+        // Kurangi jumlah
+        document.querySelectorAll('.decrease-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                updateCartItemQuantity(id, -1);
+            });
+        });
+
+        // Hapus item
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                removeCartItem(id);
+            });
+        });
+    }
+
+    function updateCartItemQuantity(id, change) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (!currentUser.id) return;
+
+        const userCartKey = `kpopCart_${currentUser.id}`;
+        let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+        const item = cart.find(item => item.id === id);
+        if (item) {
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cart = cart.filter(item => item.id !== id);
+            }
+            localStorage.setItem(userCartKey, JSON.stringify(cart));
+            updateCartOverlay();
+            updateCartCount();
+        }
+    }
+
+    function removeCartItem(id) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (!currentUser.id) return;
+
+        const userCartKey = `kpopCart_${currentUser.id}`;
+        let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+        cart = cart.filter(item => item.id !== id);
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+        updateCartOverlay();
+        updateCartCount();
+    }
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (!cartCount) return;
+
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        if (!isLoggedIn || !currentUser.id) {
+            cartCount.textContent = '0';
+            return;
+        }
+
+        const userCartKey = `kpopCart_${currentUser.id}`;
+        const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = totalItems;
+    }
+
+    function showLoginRequiredAlert() {
+        const alertHTML = `
+    <div class="alert alert-warning alert-dismissible fade show position-fixed" 
+         style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+      <i class="fas fa-lock me-2"></i>
+      <strong>Login Required!</strong><br>
+      Please login first to add items to cart.
+      <div class="mt-2">
+        <a href="login.html" class="btn btn-sm btn-primary me-2">Login Now</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    </div>
+  `;
+
+        // Hapus alert yang ada
+        document.querySelectorAll('.alert').forEach(alert => alert.remove());
+
+        // Tambahkan alert baru
+        document.body.insertAdjacentHTML('beforeend', alertHTML);
+
+        // Auto hapus setelah 5 detik
+        setTimeout(() => {
+            const alert = document.querySelector('.alert');
+            if (alert) alert.remove();
+        }, 5000);
+    }
+
+    function showCartSuccessAlert(itemName) {
+        const alertHTML = `
+    <div class="alert alert-success alert-dismissible fade show position-fixed" 
+         style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+      <i class="fas fa-check-circle me-2"></i>
+      <strong>Added to Cart!</strong><br>
+      ${itemName} has been added to your cart.
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  `;
+
+        // Hapus alert yang ada
+        document.querySelectorAll('.alert').forEach(alert => alert.remove());
+
+        // Tambahkan alert baru
+        document.body.insertAdjacentHTML('beforeend', alertHTML);
+
+        // Auto hapus setelah 3 detik
+        setTimeout(() => {
+            const alert = document.querySelector('.alert');
+            if (alert) alert.remove();
+        }, 3000);
+    }
+
+    function showAddedToCartAnimation(button) {
+        const originalText = button.textContent;
+        button.textContent = 'Added! ✨';
+        button.style.backgroundColor = '#ff66c4';
+        button.disabled = true;
+
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.backgroundColor = '';
+            button.disabled = false;
+        }, 1500);
+    }
+
+    function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    </script>
+</body>
+</html>

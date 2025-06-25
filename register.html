@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+            padding: 40px 0;
+        }
+        
+        .register-card {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .register-paper {
+            background-color: var(--light);
+            border: 2px solid var(--dark);
+            border-radius: 12px;
+            box-shadow: 5px 5px 0 var(--dark);
+            padding: 40px 50px;
+            position: relative;
+        }
+        
+        .register-tab {
+            position: absolute;
+            top: -2px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 8px 16px;
+            border-radius: 0 0 8px 8px;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .register-title {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 2rem;
+            text-shadow: 2px 2px 0 var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .register-subtitle {
+            color: var(--dark);
+            font-family: "Nunito", sans-serif;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-control {
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-family: "Nunito", sans-serif;
+            font-size: 16px;
+            box-shadow: 2px 2px 0 var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 2px 2px 0 var(--primary);
+            outline: none;
+        }
+        
+        .register-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--dark);
+            z-index: 1;
+        }
+        
+        .divider span {
+            background: var(--light);
+            padding: 0 20px;
+            color: var(--dark);
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .login-link a:hover {
+            color: var(--secondary);
+        }
+        
+        .alert-custom {
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
+        }
+        
+        .alert-error {
+            background-color: #ffe6e6;
+            color: #d63384;
+            border-color: #d63384;
+        }
+        
+        .alert-success {
+            background-color: #e6ffe6;
+            color: #198754;
+            border-color: #198754;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        
+        .back-button {
+            background: var(--chrome);
+            border: 2px solid var(--dark);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 18px;
+            box-shadow: 3px 3px 0 var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            color: var(--light);
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Decorative elements */
+        .deco-star {
+            position: absolute;
+            font-size: 20px;
+            color: var(--sparkle);
+            animation: sparkle 2s infinite ease-in-out;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        @media (max-width: 768px) {
+            .register-paper {
+                padding: 30px 25px;
+                margin: 20px;
+            }
+            
+            .register-title {
+                font-size: 1.5rem;
+            }
+            
+            .register-card {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .register-paper {
+                padding: 25px 20px;
+                margin: 15px;
+            }
+            
+            .register-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <!-- Back Button -->
+        <div class="back-link">
+            <a href="Landingpage.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        
+        <!-- Decorative Stars -->
+        <div class="deco-star" style="top: 15%; left: 10%;">✨</div>
+        <div class="deco-star" style="top: 70%; right: 15%;">💫</div>
+        <div class="deco-star" style="bottom: 20%; left: 20%;">⭐</div>
+        <div class="deco-star" style="top: 30%; right: 25%;">✨</div>
+        
+        <div class="container">
+            <div class="register-card">
+                <div class="register-paper">
+                    <div class="register-tab">Join Us</div>
+                    
+                    <div class="register-header">
+                        <h1 class="register-title">Join KPOP CLUB!</h1>
+                        <p class="register-subtitle">Create your account and start your K-pop journey</p>
+                    </div>
+                    
+                    <!-- Alert Messages -->
+                    <div id="alert-container"></div>
+                    
+                    <form id="registerForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn y2k-button register-button">
+                            Join KPOP CLUB! ✨
+                        </button>
+                    </form>
+                    
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+                    
+                    <div class="login-link">
+                        <p>Already have an account? <a href="login.html">Login here!</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize default users first
+            initializeDefaultUsers();
+            
+            const registerForm = document.getElementById('registerForm');
+            const alertContainer = document.getElementById('alert-container');
+            
+            // Check if already logged in
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'Landingpage.html';
+                return;
+            }
+            
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Validation
+                if (!firstName || !lastName || !email || !password || !confirmPassword) {
+                    showAlert('Please fill in all fields.', 'error');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showAlert('Passwords do not match.', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showAlert('Password must be at least 6 characters long.', 'error');
+                    return;
+                }
+                
+                // Get existing users
+                const users = JSON.parse(localStorage.getItem('kpopUsers')) || [];
+                
+                // Check if email already exists
+                if (users.find(user => user.email === email)) {
+                    showAlert('Email already exists. Please use a different email.', 'error');
+                    return;
+                }
+                
+                // Create new user
+                const newUser = {
+                    id: Date.now().toString(),
+                    firstName: firstName,
+                    lastName: lastName,
+                    name: firstName + ' ' + lastName,
+                    email: email,
+                    password: password,
+                    role: 'customer',
+                    status: 'active',
+                    joinedDate: new Date().toLocaleDateString('id-ID'),
+                    orders: 0
+                };
+                
+                // Add user to array
+                users.push(newUser);
+                
+                // Save to localStorage
+                localStorage.setItem('kpopUsers', JSON.stringify(users));
+                
+                showAlert('Registration successful! You can now login with your account. ✨', 'success');
+                
+                // Clear form
+                registerForm.reset();
+                
+                // Redirect to login after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            });
+            
+            function showAlert(message, type) {
+                const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+                alertContainer.innerHTML = `
+                    <div class="alert-custom ${alertClass}">
+                        ${message}
+                    </div>
+                `;
+                
+                // Auto hide after 5 seconds
+                setTimeout(() => {
+                    alertContainer.innerHTML = '';
+                }, 5000);
+            }
+            
+            function initializeDefaultUsers() {
+                const existingUsers = JSON.parse(localStorage.getItem('kpopUsers')) || [];
+                
+                // If no users exist, create default admin user
+                if (existingUsers.length === 0) {
+                    const defaultAdmin = {
+                        id: 'admin-001',
+                        firstName: 'Admin',
+                        lastName: 'User',
+                        name: 'Admin User',
+                        email: 'admin@example.com',
+                        password: 'admin',
+                        role: 'admin',
+                        status: 'active',
+                        joinedDate: new Date().toLocaleDateString('id-ID'),
+                        orders: 0
+                    };
+                    
+                    existingUsers.push(defaultAdmin);
+                    localStorage.setItem('kpopUsers', JSON.stringify(existingUsers));
+                    console.log('Default admin user created: admin@example.com / admin');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

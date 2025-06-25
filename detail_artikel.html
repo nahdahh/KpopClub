@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Article Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .article-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid var(--dark);
+            margin-bottom: 30px;
+        }
+        
+        .article-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .article-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 30px;
+        }
+        
+        .article-category {
+            display: inline-block;
+            background: var(--chrome);
+            color: var(--dark);
+            font-family: "Poppins", sans-serif;
+            font-size: 12px;
+            border-radius: 12px;
+            padding: 6px 12px;
+            border: 2px solid var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .article-meta i {
+            color: var(--primary);
+        }
+        
+        .article-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--dark);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .article-content h2 {
+            color: var(--dark);
+            margin: 25px 0 15px 0;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+        }
+        
+        .article-content h3 {
+            color: var(--dark);
+            margin: 20px 0 10px 0;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid var(--dark);
+            margin: 20px 0;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-btn.facebook { background: #3b5998; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.whatsapp { background: #25d366; }
+        .share-btn.telegram { background: #0088cc; }
+        
+        .tags-section {
+            margin: 30px 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--light);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 5px 12px;
+            margin: 0 5px 8px 0;
+            font-size: 0.85rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+        
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--dark);
+        }
+
+        .sidebar-card {
+            background: white;
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .related-article-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .related-article-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .related-article-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--dark);
+            margin-right: 1rem;
+        }
+
+        .related-article-content h6 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-article-content h6 a {
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .related-article-content h6 a:hover {
+            color: var(--primary);
+        }
+
+        .related-article-date {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Comments Section Styles */
+        .comments-section {
+            background: white;
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comment-form {
+            background: var(--bg-light);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .comment-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+            position: relative;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--dark);
+            object-fit: cover;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .comment-date {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .comment-text {
+            margin-left: 66px;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        .comment-actions {
+            margin-left: 66px;
+            margin-top: 0.5rem;
+        }
+
+        .comment-action-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .comment-action-btn:hover {
+            color: var(--secondary);
+        }
+
+        .comment-stats {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border: 1px solid var(--primary);
+        }
+
+        .comment-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark);
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
+        }
+
+        .comment-stat i {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .article-meta {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .share-buttons {
+                justify-content: center;
+            }
+            
+            .comment-text {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .comment-actions {
+                margin-left: 0;
+            }
+            
+            .comment-stats {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="Landingpage.html">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="article.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+                    <!-- Authentication Section -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Latest K-pop News & Updates • Stay Connected ✨
+    </div>
+    
+    <!-- Article Detail Section -->
+    <section class="py-5">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="Landingpage.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="article.html">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">BoyNextDoor Announces Summer Comeback</li>
+                </ol>
+            </nav>
+            
+            <div class="row">
+                <!-- Article Content -->
+                <div class="col-lg-8">
+                    <!-- Article Header -->
+                    <div class="article-header">
+                        <img src="https://i.pinimg.com/1200x/e2/74/f2/e274f25959bd2185951676bed82ea08d.jpg" alt="BoyNextDoor Comeback" id="article-image">
+                        <div class="article-overlay">
+                            <div class="article-category" id="article-category">COMEBACK</div>
+                            <h1 class="y2k-title text-white mb-0" id="article-title">BoyNextDoor Announces Summer Comeback with Mini Album "NOGENRE"</h1>
+                        </div>
+                    </div>
+                    
+                    <!-- Article Meta -->
+                    <div class="article-meta">
+                        <div><i class="far fa-calendar-alt me-1"></i> <span id="article-date">May 10, 2025</span></div>
+                        <div><i class="far fa-user me-1"></i> <span id="article-author">KPOP CLUB Editor</span></div>
+                        <div><i class="far fa-eye me-1"></i> <span id="article-views">1,234 views</span></div>
+                        <div><i class="far fa-clock me-1"></i> <span id="article-read-time">3 min read</span></div>
+                    </div>
+                    
+                    <!-- Article Content -->
+                    <div class="article-content" id="article-content">
+                        <p class="lead">BoyNextDoor is set to make their highly anticipated comeback this summer with their new mini album "NOGENRE". Pre-orders start next week!</p>
+                        
+                        <p>BoyNextDoor has officially announced their summer comeback with the release of their highly anticipated mini album titled "NOGENRE". The announcement came through their official social media channels, sending fans into a frenzy of excitement.</p>
+                        
+                        <h2>Album Details</h2>
+                        <p>The mini album "NOGENRE" will feature 6 tracks, including the title track "Summer Nights" and several B-side tracks that showcase the group's versatility and growth as artists.</p>
+                        
+                        <img src="https://i.pinimg.com/736x/5e/4e/73/5e4e737ef33ea0dcb5d176190a432a5c.jpg" alt="BoyNextDoor Album Concept" class="img-fluid">
+                        
+                        <h2>Pre-Order Information</h2>
+                        <p>Pre-orders for "NOGENRE" will begin on May 15, 2025, and will be available through KPOP CLUB official store and major online retailers worldwide.</p>
+                        
+                        <p>The album will be available in three different versions: Day, Night, and Special Edition. Each version will include exclusive photocards and posters.</p>
+                        
+                        <p>Stay tuned to KPOP CLUB for more updates on BoyNextDoor's comeback and pre-order information!</p>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="tags-section">
+                        <h5 class="y2k-subtitle mb-3">Tags:</h5>
+                        <a href="#" class="tag">BoyNextDoor</a>
+                        <a href="#" class="tag">Comeback</a>
+                        <a href="#" class="tag">NOGENRE</a>
+                        <a href="#" class="tag">Summer</a>
+                        <a href="#" class="tag">Pre-order</a>
+                        <a href="#" class="tag">K-pop</a>
+                    </div>
+                    
+                    <!-- Share Buttons -->
+                    <div class="share-section">
+                        <h5 class="y2k-subtitle mb-3">Share this article:</h5>
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn facebook" onclick="shareOnFacebook()">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="share-btn twitter" onclick="shareOnTwitter()">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="share-btn telegram" onclick="shareOnTelegram()">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <h3 class="y2k-title mb-4">
+                            <i class="fas fa-comments me-2"></i>Comments
+                        </h3>
+                        
+                        <!-- Comment Stats -->
+                        <div class="comment-stats">
+                            <div class="comment-stat">
+                                <i class="fas fa-comment"></i>
+                                <span id="comment-count">12 Comments</span>
+                            </div>
+                            <div class="comment-stat">
+                                <i class="fas fa-heart"></i>
+                                <span>45 Likes</span>
+                            </div>
+                            <div class="comment-stat">
+                                <i class="fas fa-share"></i>
+                                <span>8 Shares</span>
+                            </div>
+                        </div>
+
+                        <!-- Comment Form -->
+                        <div class="comment-form" id="comment-form">
+                            <h5 class="y2k-subtitle mb-3">Leave a Comment</h5>
+                            <form id="commentForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" id="commentName" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="email" class="form-control" id="commentEmail" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="commentText" rows="4" placeholder="Write your comment here..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn y2k-button">
+                                    <i class="fas fa-paper-plane me-2"></i>Post Comment
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Comments List -->
+                        <div id="comments-list">
+                            <!-- Sample Comments -->
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <img src="https://i.pravatar.cc/50?img=1" alt="User Avatar" class="comment-avatar">
+                                    <div>
+                                        <h6 class="comment-author">Sarah Kim</h6>
+                                        <span class="comment-date">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <p class="comment-text">So excited for BoyNextDoor's comeback! Their music always brings such good vibes. Can't wait to pre-order the special edition! 💖</p>
+                                <div class="comment-actions">
+                                    <button class="comment-action-btn" onclick="likeComment(this)">
+                                        <i class="far fa-heart"></i> Like (5)
+                                    </button>
+                                    <button class="comment-action-btn" onclick="replyComment(this)">
+                                        <i class="fas fa-reply"></i> Reply
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <img src="https://i.pravatar.cc/50?img=2" alt="User Avatar" class="comment-avatar">
+                                    <div>
+                                        <h6 class="comment-author">Alex Chen</h6>
+                                        <span class="comment-date">4 hours ago</span>
+                                    </div>
+                                </div>
+                                <p class="comment-text">The concept photos look amazing! I love how they're experimenting with different genres. This is going to be their best album yet!</p>
+                                <div class="comment-actions">
+                                    <button class="comment-action-btn" onclick="likeComment(this)">
+                                        <i class="far fa-heart"></i> Like (12)
+                                    </button>
+                                    <button class="comment-action-btn" onclick="replyComment(this)">
+                                        <i class="fas fa-reply"></i> Reply
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <img src="https://i.pravatar.cc/50?img=3" alt="User Avatar" class="comment-avatar">
+                                    <div>
+                                        <h6 class="comment-author">Mia Johnson</h6>
+                                        <span class="comment-date">6 hours ago</span>
+                                    </div>
+                                </div>
+                                <p class="comment-text">Finally! I've been waiting for their comeback since their last album. Summer Nights sounds like it's going to be the perfect summer anthem! 🌟</p>
+                                <div class="comment-actions">
+                                    <button class="comment-action-btn" onclick="likeComment(this)">
+                                        <i class="far fa-heart"></i> Like (8)
+                                    </button>
+                                    <button class="comment-action-btn" onclick="replyComment(this)">
+                                        <i class="fas fa-reply"></i> Reply
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <img src="https://i.pravatar.cc/50?img=4" alt="User Avatar" class="comment-avatar">
+                                    <div>
+                                        <h6 class="comment-author">David Park</h6>
+                                        <span class="comment-date">8 hours ago</span>
+                                    </div>
+                                </div>
+                                <p class="comment-text">Does anyone know if they'll be doing a world tour after this album release? I really hope they come to my city!</p>
+                                <div class="comment-actions">
+                                    <button class="comment-action-btn" onclick="likeComment(this)">
+                                        <i class="far fa-heart"></i> Like (3)
+                                    </button>
+                                    <button class="comment-action-btn" onclick="replyComment(this)">
+                                        <i class="fas fa-reply"></i> Reply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Load More Comments -->
+                        <div class="text-center mt-4">
+                            <button class="btn y2k-button" onclick="loadMoreComments()">
+                                <i class="fas fa-chevron-down me-2"></i>Load More Comments
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Related Articles -->
+                    <div class="sidebar-card">
+                        <h4 class="y2k-subtitle mb-3">Related Articles</h4>
+                        
+                        <div class="related-article-item">
+                            <img src="https://i.pinimg.com/736x/48/3a/bc/483abce66ab56b31d2d7115cbf05bc9b.jpg" alt="Related Article" class="related-article-img">
+                            <div class="related-article-content">
+                                <h6><a href="#">Blackpink Announces World Tour Dates</a></h6>
+                                <div class="related-article-date">May 5, 2025</div>
+                            </div>
+                        </div>
+                        
+                        <div class="related-article-item">
+                            <img src="https://i.pinimg.com/736x/5e/4e/73/5e4e737ef33ea0dcb5d176190a432a5c.jpg" alt="Related Article" class="related-article-img">
+                            <div class="related-article-content">
+                                <h6><a href="#">BTS 10th Anniversary Special Edition</a></h6>
+                                <div class="related-article-date">May 8, 2025</div>
+                            </div>
+                        </div>
+                        
+                        <div class="related-article-item">
+                            <img src="https://i.pinimg.com/736x/3f/7c/4c/3f7c4cc56c9e1d31aedae79f385f63e6.jpg" alt="Related Article" class="related-article-img">
+                            <div class="related-article-content">
+                                <h6><a href="#">TWICE Teases New Concept Photos</a></h6>
+                                <div class="related-article-date">April 30, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="sidebar-card">
+                        <h4 class="y2k-subtitle mb-3">Newsletter</h4>
+                        <p>Subscribe to get the latest K-pop news!</p>
+                        <form>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Your email address">
+                            </div>
+                            <button type="submit" class="btn y2k-button w-100">Subscribe</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Popular Tags -->
+                    <div class="sidebar-card">
+                        <h4 class="y2k-subtitle mb-3">Popular Tags</h4>
+                        <div>
+                            <a href="#" class="tag">BTS</a>
+                            <a href="#" class="tag">Blackpink</a>
+                            <a href="#" class="tag">NewJeans</a>
+                            <a href="#" class="tag">TWICE</a>
+                            <a href="#" class="tag">Stray Kids</a>
+                            <a href="#" class="tag">Aespa</a>
+                            <a href="#" class="tag">Comeback</a>
+                            <a href="#" class="tag">Album</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact" class="footer-y2k">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Drops</a></li>
+                        <li><a href="shop.html">Fan Favorites</a></li>
+                        <li><a href="shop.html#preorder">Pre-Orders</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="article.html">Blog</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h4 class="footer-title">Connect</h4>
+                    <p>Follow us for idol updates and merch drops! 💖</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4 mt-4 border-top border-secondary">
+                © 2025 KPOP CLUB. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Get article data from URL parameters or localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            loadArticleData(articleId);
+            updateCartCount();
+            initComments();
+        });
+        
+        function loadArticleData(articleId) {
+            const articles = {
+                '1': {
+                    title: 'BoyNextDoor Announces Summer Comeback with Mini Album "NOGENRE"',
+                    category: 'COMEBACK',
+                    date: 'May 10, 2025',
+                    author: 'KPOP CLUB Editor',
+                    views: '1,234',
+                    readTime: '3 min',
+                    image: 'https://i.pinimg.com/1200x/e2/74/f2/e274f25959bd2185951676bed82ea08d.jpg',
+                    content: `
+                        <p class="lead">BoyNextDoor is set to make their highly anticipated comeback this summer with their new mini album "NOGENRE". Pre-orders start next week!</p>
+                        
+                        <p>BoyNextDoor has officially announced their summer comeback with the release of their highly anticipated mini album titled "NOGENRE". The announcement came through their official social media channels, sending fans into a frenzy of excitement.</p>
+                        
+                        <h2>Album Details</h2>
+                        <p>The mini album "NOGENRE" will feature 6 tracks, including the title track "Summer Nights" and several B-side tracks that showcase the group's versatility and growth as artists.</p>
+                        
+                        <img src="https://i.pinimg.com/736x/5e/4e/73/5e4e737ef33ea0dcb5d176190a432a5c.jpg" alt="BoyNextDoor Album Concept" class="img-fluid">
+                        
+                        <h2>Pre-Order Information</h2>
+                        <p>Pre-orders for "NOGENRE" will begin on May 15, 2025, and will be available through KPOP CLUB official store and major online retailers worldwide.</p>
+                        
+                        <p>The album will be available in three different versions: Day, Night, and Special Edition. Each version will include exclusive photocards and posters.</p>
+                        
+                        <p>Stay tuned to KPOP CLUB for more updates on BoyNextDoor's comeback and pre-order information!</p>
+                    `
+                }
+            };
+            
+            if (articleId && articles[articleId]) {
+                const article = articles[articleId];
+                document.getElementById('article-title').textContent = article.title;
+                document.getElementById('article-category').textContent = article.category;
+                document.getElementById('article-date').textContent = article.date;
+                document.getElementById('article-author').textContent = article.author;
+                document.getElementById('article-views').textContent = article.views + ' views';
+                document.getElementById('article-read-time').textContent = article.readTime + ' read';
+                document.getElementById('article-image').src = article.image;
+                document.getElementById('article-content').innerHTML = article.content;
+                document.title = 'KPOP CLUB - ' + article.title;
+                
+                const breadcrumbActive = document.querySelector('.breadcrumb-item.active');
+                breadcrumbActive.textContent = article.title.substring(0, 50) + '...';
+            }
+        }
+        
+        // Comments functionality
+        function initComments() {
+            const commentForm = document.getElementById('commentForm');
+            commentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                addComment();
+            });
+        }
+
+        function addComment() {
+            const name = document.getElementById('commentName').value;
+            const email = document.getElementById('commentEmail').value;
+            const text = document.getElementById('commentText').value;
+
+            if (!name || !email || !text) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Create new comment element
+            const commentsList = document.getElementById('comments-list');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            
+            const randomAvatar = Math.floor(Math.random() * 70) + 1;
+            
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <img src="https://i.pravatar.cc/50?img=${randomAvatar}" alt="User Avatar" class="comment-avatar">
+                    <div>
+                        <h6 class="comment-author">${name}</h6>
+                        <span class="comment-date">Just now</span>
+                    </div>
+                </div>
+                <p class="comment-text">${text}</p>
+                <div class="comment-actions">
+                    <button class="comment-action-btn" onclick="likeComment(this)">
+                        <i class="far fa-heart"></i> Like (0)
+                    </button>
+                    <button class="comment-action-btn" onclick="replyComment(this)">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                </div>
+            `;
+
+            // Insert at the beginning of comments list
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+
+            // Clear form
+            document.getElementById('commentForm').reset();
+
+            // Update comment count
+            const currentCount = parseInt(document.getElementById('comment-count').textContent);
+            document.getElementById('comment-count').textContent = (currentCount + 1) + ' Comments';
+
+            // Show success message
+            showCommentAlert('Comment posted successfully!', 'success');
+        }
+
+        function likeComment(button) {
+            const heartIcon = button.querySelector('i');
+            const likeText = button.textContent.trim();
+            const currentLikes = parseInt(likeText.match(/\d+/)[0]);
+            
+            if (heartIcon.classList.contains('far')) {
+                heartIcon.classList.remove('far');
+                heartIcon.classList.add('fas');
+                heartIcon.style.color = '#ff66cc';
+                button.innerHTML = `<i class="fas fa-heart" style="color: #ff66cc;"></i> Like (${currentLikes + 1})`;
+            } else {
+                heartIcon.classList.remove('fas');
+                heartIcon.classList.add('far');
+                heartIcon.style.color = '';
+                button.innerHTML = `<i class="far fa-heart"></i> Like (${currentLikes - 1})`;
+            }
+        }
+
+        function replyComment(button) {
+            // Simple reply functionality - in a real app, this would open a reply form
+            showCommentAlert('Reply feature coming soon!', 'info');
+        }
+
+        function loadMoreComments() {
+            // Simulate loading more comments
+            showCommentAlert('Loading more comments...', 'info');
+            
+            setTimeout(() => {
+                showCommentAlert('No more comments to load', 'info');
+            }, 1000);
+        }
+
+        function showCommentAlert(message, type) {
+            const alertClass = type === 'success' ? 'alert-success' : 
+                             type === 'info' ? 'alert-info' : 'alert-warning';
+            
+            const alertHTML = `
+                <div class="alert ${alertClass} alert-dismissible fade show position-fixed" 
+                     style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+
+            // Remove existing alerts
+            document.querySelectorAll(".alert").forEach((alert) => alert.remove());
+
+            // Add new alert
+            document.body.insertAdjacentHTML("beforeend", alertHTML);
+
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                const alert = document.querySelector(".alert");
+                if (alert) alert.remove();
+            }, 3000);
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.getElementById('article-title').textContent);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.getElementById('article-title').textContent);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.getElementById('article-title').textContent);
+            window.open(`https://wa.me/?text=${title} ${url}`, '_blank');
+        }
+        
+        function shareOnTelegram() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.getElementById('article-title').textContent);
+            window.open(`https://t.me/share/url?url=${url}&text=${title}`, '_blank');
+        }
+        
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const cart = JSON.parse(localStorage.getItem("kpopCart")) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+    </script>
+
+<script>
+// Authentication functionality
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
+});
+
+function updateAuthUI() {
+    const authSection = document.getElementById('auth-section');
+    const cartButton = document.getElementById('cart-button');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+        
+        if (cartButton) {
+            cartButton.style.display = 'block';
+        }
+        
+        authSection.innerHTML = `
+    <div class="dropdown">
+        <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+            <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+            <li><a class="dropdown-item" href="setting_profile.html" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+            <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+            <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-archive me-2"></i>Arsip</a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+    </div>
+`;
+
+const profileName = authSection.querySelector('.profile-name');
+const userDropdown = authSection.querySelector('#userDropdown');
+
+userDropdown.addEventListener('click', function() {
+    profileName.style.color = '#87CEEB';
+});
+
+userDropdown.addEventListener('blur', function() {
+    setTimeout(() => {
+        profileName.style.color = 'var(--dark)';
+    }, 200);
+});
+        
+    } else {
+        if (cartButton) {
+            cartButton.style.display = 'none';
+        }
+        
+        authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    window.location.reload();
+}
+</script>
+</body>
+</html>

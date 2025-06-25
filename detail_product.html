@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP CLUB - Product Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-y2k sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">KPOP <span>CLUB</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landingpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+
+                    <!-- Authentication Section -->
+                    <li class="nav-item" id="auth-section">
+                        <!-- Will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Banner -->
+    <div class="kpop-banner">
+        ✨ Exclusive K-pop Merch • Limited Edition Items ✨
+    </div>
+    
+    <!-- Product Detail Section -->
+    <section class="py-5">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="shop.html">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-product-name">Loading...</li>
+                </ol>
+            </nav>
+            
+            <div class="row mt-4" id="product-detail-container">
+                <!-- Product content will be loaded here -->
+            </div>
+            
+            <!-- Product Description Tabs -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Specifications</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews (120)</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-4 y2k-card" id="productTabsContent">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <h4 class="y2k-subtitle mb-3">Product Description</h4>
+                            <div id="product-description-content">
+                                <!-- Description will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                            <h4 class="y2k-subtitle mb-3">Technical Specifications</h4>
+                            <div id="product-specifications-content">
+                                <!-- Specifications will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <h4 class="y2k-subtitle mb-3">Customer Reviews</h4>
+                            <div class="mb-4">
+                                <div class="d-flex mb-3">
+                                    <div class="flex-shrink-0">
+                                        <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="mt-0">Jisoo K.</h5>
+                                        <div class="product-rating mb-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <p>Amazing product! Great quality and fast shipping. Highly recommended!</p>
+                                        <small class="text-muted">Posted 2 weeks ago</small>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex mb-3">
+                                    <div class="flex-shrink-0">
+                                        <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="mt-0">Mark T.</h5>
+                                        <div class="product-rating mb-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <p>Good product overall. Could be improved but still worth the price!</p>
+                                        <small class="text-muted">Posted 1 month ago</small>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="mt-0">Sana M.</h5>
+                                        <div class="product-rating mb-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <p>Perfect! Exactly what I was looking for. Will definitely buy again!</p>
+                                        <small class="text-muted">Posted 3 months ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn y2k-button">See All Reviews</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <div class="mt-5">
+                <h2 class="y2k-title text-center mb-4">You May Also Like</h2>
+                <div class="row" id="related-products">
+                    <!-- Related products will be loaded here -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer-y2k">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <h4 class="footer-title">Shop</h4>
+                        <ul class="footer-links">
+                            <li><a href="#categories">Categories</a></li>
+                            <li><a href="#products">All Products</a></li>
+                            <li><a href="#preorder">Pre-Orders</a></li>
+                            <li><a href="#">Special Offers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <h4 class="footer-title">Information</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html#about">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <h4 class="footer-title">Customer Service</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html#contact">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Returns</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <h4 class="footer-title">Connect</h4>
+                        <p>Follow us for idol updates and merch drops! 💖</p>
+                        <div class="d-flex mt-3">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center pt-4 mt-4 border-top border-secondary">
+                    © 2025 KPOP CLUB. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <!-- Cart Overlay -->
+        <div class="cart-overlay" id="cart-overlay">
+            <div class="cart-sidebar" id="cart-sidebar">
+                <div class="cart-header">
+                    <h3 class="cart-title">Your Cart</h3>
+                    <button class="close-cart" id="close-cart">&times;</button>
+                </div>
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be loaded dynamically -->
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <a href="cart.html" class="btn y2k-button w-100">View Cart</a>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Product Management JS -->
+        <script src="assets/js/product.js"></script>
+        <!-- Main JS -->
+        <script src="assets/js/main.js"></script>
+        
+        <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Initialize authentication
+    updateAuthUI();
+    
+    // Load product details
+    loadProductDetail();
+    
+    // Initialize cart
+    initCartForDetailPage();
+});
+
+function loadProductDetail() {
+    // Get product ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    
+    if (!productId) {
+        showProductNotFound();
+        return;
+    }
+    
+    // Get product from product manager
+    const product = window.productManager.getProductById(productId);
+    
+    if (!product) {
+        showProductNotFound();
+        return;
+    }
+    
+    // Update page title and breadcrumb
+    document.title = `KPOP CLUB - ${product.name}`;
+    document.getElementById('breadcrumb-product-name').textContent = product.name;
+    
+    // Load product content
+    loadProductContent(product);
+    loadProductDescription(product);
+    loadRelatedProducts(product);
+}
+
+function loadProductContent(product) {
+    const container = document.getElementById('product-detail-container');
+    
+    const productHTML = `
+        <!-- Product Images -->
+        <div class="col-lg-6 mb-4">
+            <div class="y2k-card p-3 mb-3">
+                <img src="${product.image}" alt="${product.name}" class="img-fluid" id="main-product-image" onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'">
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="y2k-card p-2 mb-2 product-thumbnail active" data-image="${product.image}">
+                        <img src="${product.image}" alt="${product.name} - View 1" class="img-fluid" onerror="this.src='https://via.placeholder.com/100'">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="y2k-card p-2 mb-2 product-thumbnail" data-image="${product.image}">
+                        <img src="${product.image}" alt="${product.name} - View 2" class="img-fluid" onerror="this.src='https://via.placeholder.com/100'">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="y2k-card p-2 mb-2 product-thumbnail" data-image="${product.image}">
+                        <img src="${product.image}" alt="${product.name} - View 3" class="img-fluid" onerror="this.src='https://via.placeholder.com/100'">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="y2k-card p-2 mb-2 product-thumbnail" data-image="${product.image}">
+                        <img src="${product.image}" alt="${product.name} - View 4" class="img-fluid" onerror="this.src='https://via.placeholder.com/100'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Info -->
+        <div class="col-lg-6">
+            <div class="y2k-paper p-4">
+                <div class="y2k-tab">Official Merch</div>
+                <div class="retro-text mb-2">${product.artist.toUpperCase()}</div>
+                <h1 class="y2k-title mb-3">${product.name}</h1>
+                <div class="product-rating mb-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span class="ms-2">(120 reviews)</span>
+                </div>
+                <div class="product-price mb-4">
+                    <h3>Rp ${window.productManager.formatPrice(product.price)}</h3>
+                </div>
+                ${product.badge ? `
+                <div class="sticker mb-3">
+                    <span class="sticker-text">${product.badge.toUpperCase()}!</span>
+                </div>
+                ` : ''}
+                <p class="mb-4">${product.description || 'High-quality K-pop merchandise from your favorite artists. Official product with premium materials and authentic design.'}</p>
+                
+                ${product.features ? `
+                <div class="mb-4">
+                    <h5 class="y2k-subtitle mb-2">Features:</h5>
+                    <ul>
+                        ${product.features.split('\n').map(feature => feature.trim() ? `<li>${feature.trim()}</li>` : '').join('')}
+                    </ul>
+                </div>
+                ` : ''}
+                
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <div class="input-group">
+                            <button class="btn y2k-button" id="decrease-quantity">-</button>
+                            <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
+                            <button class="btn y2k-button" id="increase-quantity">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex mb-4">
+                    <button class="btn y2k-button py-2 px-4 flex-grow-1" id="add-to-cart" 
+                            data-id="${product.id}" 
+                            data-name="${product.name}" 
+                            data-price="${product.price}" 
+                            data-image="${product.image}">
+                        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                    </button>
+                    <button class="btn y2k-button py-2 px-4" id="add-to-wishlist">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-truck me-2"></i>
+                    <span>Free shipping for orders over Rp 500.000</span>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-shield-alt me-2"></i>
+                    <span>100% Authentic Guarantee</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-undo me-2"></i>
+                    <span>14-day Return Policy</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = productHTML;
+    
+    // Setup event listeners
+    setupProductInteractions(product);
+}
+
+function loadProductDescription(product) {
+    const descriptionContent = document.getElementById('product-description-content');
+    const specificationsContent = document.getElementById('product-specifications-content');
+    
+    // Load description
+    descriptionContent.innerHTML = `
+        <p>${product.description || 'High-quality K-pop merchandise from your favorite artists. Official product with premium materials and authentic design.'}</p>
+        ${product.features ? `
+        <h5 class="mt-4 mb-3">Key Features:</h5>
+        <ul>
+            ${product.features.split('\n').map(feature => feature.trim() ? `<li>${feature.trim()}</li>` : '').join('')}
+        </ul>
+        ` : ''}
+    `;
+    
+    // Load specifications
+    specificationsContent.innerHTML = `
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Product Name</th>
+                    <td>${product.name}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Artist</th>
+                    <td>${product.artist.toUpperCase()}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Category</th>
+                    <td>${product.category}</td>
+                </tr>
+                <tr>
+                    <th scope="row">SKU</th>
+                    <td>${product.sku || 'N/A'}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Stock Status</th>
+                    <td>${product.status}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Available Stock</th>
+                    <td>${product.stock || 0} units</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price</th>
+                    <td>Rp ${window.productManager.formatPrice(product.price)}</td>
+                </tr>
+            </tbody>
+        </table>
+    `;
+}
+
+function loadRelatedProducts(currentProduct) {
+    const relatedContainer = document.getElementById('related-products');
+    const allProducts = window.productManager.getAllProducts();
+    
+    // Get related products (same artist or category, excluding current product)
+    const relatedProducts = allProducts
+        .filter(p => p.id !== currentProduct.id && (p.artist === currentProduct.artist || p.category === currentProduct.category))
+        .slice(0, 4);
+    
+    if (relatedProducts.length === 0) {
+        // If no related products, show random products
+        const randomProducts = allProducts
+            .filter(p => p.id !== currentProduct.id)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 4);
+        relatedProducts.push(...randomProducts);
+    }
+    
+    let relatedHTML = '';
+    relatedProducts.forEach(product => {
+        relatedHTML += `
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="y2k-card h-100">
+                    <div class="product-image">
+                        ${product.badge ? `<div class="y2k-badge">${product.badge}</div>` : ''}
+                        <img src="${product.image}" alt="${product.name}" class="img-fluid w-100" onerror="this.src='https://via.placeholder.com/300x200'">
+                    </div>
+                    <div class="p-3">
+                        <h5 class="y2k-subtitle mb-2">${product.name}</h5>
+                        <div class="product-price mb-2">Rp ${window.productManager.formatPrice(product.price)}</div>
+                        <div class="product-rating mb-3">
+                            ★★★★★
+                        </div>
+                        <a href="detail_product.html?id=${product.id}" class="btn y2k-button w-100">View Details</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    relatedContainer.innerHTML = relatedHTML;
+}
+
+function setupProductInteractions(product) {
+    // Product image gallery
+    const thumbnails = document.querySelectorAll('.product-thumbnail');
+    const mainImage = document.getElementById('main-product-image');
+    
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            // Remove active class from all thumbnails
+            thumbnails.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked thumbnail
+            this.classList.add('active');
+            
+            // Update main image
+            const imageUrl = this.getAttribute('data-image');
+            mainImage.src = imageUrl;
+        });
+    });
+    
+    // Quantity buttons
+    const quantityInput = document.getElementById('quantity');
+    const decreaseBtn = document.getElementById('decrease-quantity');
+    const increaseBtn = document.getElementById('increase-quantity');
+    
+    decreaseBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+    
+    increaseBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+    });
+    
+    // Add to cart button
+    const addToCartBtn = document.getElementById('add-to-cart');
+    addToCartBtn.addEventListener('click', function() {
+        const quantity = parseInt(quantityInput.value);
+        
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        if (!isLoggedIn || !currentUser.id) {
+            showLoginRequiredAlert();
+            return;
+        }
+        
+        // Add to cart multiple times based on quantity
+        for (let i = 0; i < quantity; i++) {
+            addToCartFromDetail(product.id, product.name, product.price, product.image);
+        }
+        
+        // Show success message
+        showCartSuccessAlert(`${quantity} x ${product.name} added to cart!`);
+        
+        // Reset quantity to 1
+        quantityInput.value = 1;
+    });
+    
+    // Add to wishlist button
+    const wishlistBtn = document.getElementById('add-to-wishlist');
+    wishlistBtn.addEventListener('click', function() {
+        // Toggle active state
+        this.classList.toggle('active');
+        
+        if (this.classList.contains('active')) {
+            this.innerHTML = '<i class="fas fa-heart text-danger"></i>';
+            showAlert('Added to your wishlist!', 'success');
+        } else {
+            this.innerHTML = '<i class="fas fa-heart"></i>';
+            showAlert('Removed from your wishlist!', 'info');
+        }
+    });
+}
+
+function showProductNotFound() {
+    const container = document.getElementById('product-detail-container');
+    container.innerHTML = `
+        <div class="col-12 text-center py-5">
+            <div class="y2k-paper p-5">
+                <h2 class="y2k-title mb-3">Product Not Found</h2>
+                <p class="lead mb-4">Sorry, the product you're looking for doesn't exist or has been removed.</p>
+                <a href="shop.html" class="btn y2k-button">
+                    <i class="fas fa-arrow-left me-2"></i> Back to Shop
+                </a>
+            </div>
+        </div>
+    `;
+    
+    // Hide tabs
+    document.getElementById('productTabs').style.display = 'none';
+    document.getElementById('productTabsContent').style.display = 'none';
+}
+
+function addToCartFromDetail(id, name, price, image) {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    if (!isLoggedIn || !currentUser.id) {
+        showLoginRequiredAlert();
+        return;
+    }
+
+    // Get user-specific cart
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    // Check if item already in cart
+    const existingItem = cart.find(item => item.id === id);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id,
+            name,
+            price,
+            image,
+            quantity: 1,
+            addedDate: new Date().toISOString(),
+        });
+    }
+
+    // Save to user-specific cart
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+
+    // Update cart UI
+    updateCartUIForDetail();
+}
+
+function initCartForDetailPage() {
+    const cartButton = document.getElementById("cart-button");
+    const cartOverlay = document.getElementById("cart-overlay");
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const closeCart = document.getElementById("close-cart");
+
+    // Load cart from localStorage
+    updateCartUIForDetail();
+
+    // Open cart
+    cartButton?.addEventListener("click", (e) => {
+        e.preventDefault();
+        cartOverlay.style.display = "flex";
+        setTimeout(() => {
+            cartSidebar.style.transform = "translateX(0)";
+        }, 10);
+    });
+
+    // Close cart
+    closeCart?.addEventListener("click", () => {
+        cartSidebar.style.transform = "translateX(100%)";
+        setTimeout(() => {
+            cartOverlay.style.display = "none";
+        }, 300);
+    });
+
+    // Close cart when clicking outside
+    cartOverlay?.addEventListener("click", (e) => {
+        if (e.target === cartOverlay) {
+            cartSidebar.style.transform = "translateX(100%)";
+            setTimeout(() => {
+                cartOverlay.style.display = "none";
+            }, 300);
+        }
+    });
+}
+
+function updateCartUIForDetail() {
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const cartCount = document.getElementById("cart-count");
+
+    if (!cartItems || !cartTotal || !cartCount) return;
+
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+    if (!isLoggedIn || !currentUser.id) {
+        // Show empty cart for non-logged users
+        cartCount.textContent = "0";
+        if (cartItems) {
+            cartItems.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="mb-3 fs-1">🔒</div>
+                    <p>Please login to view your cart</p>
+                    <a href="login.html" class="btn y2k-button">Login Now</a>
+                </div>
+            `;
+        }
+        if (cartTotal) cartTotal.textContent = "Rp 0";
+        return;
+    }
+
+    // Get user-specific cart
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    // Update cart count
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = totalItems;
+
+    // Update cart items
+    if (cart.length === 0) {
+        if (cartItems) {
+            cartItems.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="mb-3 fs-1">🛒</div>
+                    <p>Your cart is empty</p>
+                </div>
+            `;
+        }
+        if (cartTotal) cartTotal.textContent = "Rp 0";
+    } else {
+        let itemsHTML = "";
+        let total = 0;
+
+        cart.forEach((item) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            if (cartItems) {
+                itemsHTML += `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">Rp ${window.productManager.formatPrice(item.price)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                            </div>
+                            <button class="remove-item" data-id="${item.id}">Remove</button>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        if (cartItems) {
+            cartItems.innerHTML = itemsHTML;
+
+            // Add event listeners for quantity buttons
+            document.querySelectorAll(".increase-quantity").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const id = button.getAttribute("data-id");
+                    updateCartItemQuantityDetail(id, 1);
+                });
+            });
+
+            document.querySelectorAll(".decrease-quantity").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const id = button.getAttribute("data-id");
+                    updateCartItemQuantityDetail(id, -1);
+                });
+            });
+
+            // Add event listeners for remove buttons
+            document.querySelectorAll(".remove-item").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const id = button.getAttribute("data-id");
+                    removeCartItemDetail(id);
+                });
+            });
+        }
+
+        if (cartTotal) cartTotal.textContent = `Rp ${window.productManager.formatPrice(total)}`;
+    }
+}
+
+function updateCartItemQuantityDetail(id, change) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.id) return;
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    const item = cart.find((item) => item.id === id);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            cart = cart.filter((item) => item.id !== id);
+        }
+        localStorage.setItem(userCartKey, JSON.stringify(cart));
+        updateCartUIForDetail();
+    }
+}
+
+function removeCartItemDetail(id) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.id) return;
+
+    const userCartKey = `kpopCart_${currentUser.id}`;
+    let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+    cart = cart.filter((item) => item.id !== id);
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+    updateCartUIForDetail();
+}
+
+function showLoginRequiredAlert() {
+    const alertHTML = `
+        <div class="alert alert-warning alert-dismissible fade show position-fixed" 
+             style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+            <i class="fas fa-lock me-2"></i>
+            <strong>Login Required!</strong><br>
+            Please login first to add items to cart.
+            <div class="mt-2">
+                <a href="login.html" class="btn btn-sm btn-primary me-2">Login Now</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    `;
+
+    // Remove existing alerts
+    document.querySelectorAll(".alert").forEach((alert) => alert.remove());
+
+    // Add new alert
+    document.body.insertAdjacentHTML("beforeend", alertHTML);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        const alert = document.querySelector(".alert");
+        if (alert) alert.remove();
+    }, 5000);
+}
+
+function showCartSuccessAlert(message) {
+    const alertHTML = `
+        <div class="alert alert-success alert-dismissible fade show position-fixed" 
+             style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <strong>Success!</strong><br>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+
+    // Remove existing alerts
+    document.querySelectorAll(".alert").forEach((alert) => alert.remove());
+
+    // Add new alert
+    document.body.insertAdjacentHTML("beforeend", alertHTML);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        const alert = document.querySelector(".alert");
+        if (alert) alert.remove();
+    }, 3000);
+}
+
+function showAlert(message, type) {
+    const alertClass = type === 'success' ? 'alert-success' : 
+                     type === 'info' ? 'alert-info' : 'alert-warning';
+    
+    const alertHTML = `
+        <div class="alert ${alertClass} alert-dismissible fade show position-fixed" 
+             style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+
+    // Remove existing alerts
+    document.querySelectorAll(".alert").forEach((alert) => alert.remove());
+
+    // Add new alert
+    document.body.insertAdjacentHTML("beforeend", alertHTML);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        const alert = document.querySelector(".alert");
+        if (alert) alert.remove();
+    }, 3000);
+}
+
+// Authentication functionality
+function updateAuthUI() {
+    const authSection = document.getElementById('auth-section');
+    const cartButton = document.getElementById('cart-button');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const firstName = currentUser.firstName || currentUser.name.split(' ')[0];
+        
+        // Show cart when logged in
+        if (cartButton) {
+            cartButton.style.display = 'block';
+        }
+        
+        authSection.innerHTML = `
+            <div class="dropdown">
+                <a class="nav-link d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                    <i class="fas fa-user-circle me-2" style="font-size: 18px; color: var(--dark);"></i>
+                    <span class="profile-name" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 16px; color: var(--dark); transition: color 0.3s ease;">${firstName}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 180px;">
+                    <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-cog me-2"></i>Setting</a></li>
+                    <li><a class="dropdown-item" href="history_transaksi.html" style="font-size: 14px;"><i class="fas fa-history me-2"></i>Order History</a></li>
+                    <li><a class="dropdown-item" href="#" style="font-size: 14px;"><i class="fas fa-archive me-2"></i>Arsip</a></li>
+                    ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin_dashboard.html" style="font-size: 14px;"><i class="fas fa-shield-alt me-2"></i>Admin Panel</a></li>' : ''}
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="logout()" style="font-size: 14px;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        `;
+
+        // Add click effect to change name color to light blue
+        const profileName = authSection.querySelector('.profile-name');
+        const userDropdown = authSection.querySelector('#userDropdown');
+
+        userDropdown.addEventListener('click', function() {
+            profileName.style.color = '#87CEEB'; // Light blue color
+        });
+
+        // Reset color when dropdown is hidden
+        userDropdown.addEventListener('blur', function() {
+            setTimeout(() => {
+                profileName.style.color = 'var(--dark)';
+            }, 200);
+        });
+        
+    } else {
+        // Hide cart when not logged in
+        if (cartButton) {
+            cartButton.style.display = 'none';
+        }
+        
+        authSection.innerHTML = `
+            <a class="btn" href="login.html" style="padding: 8px 16px; font-size: 14px; background-color: var(--accent); color: var(--dark); border: 2px solid var(--dark); border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600;">
+                Login
+            </a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    window.location.reload();
+}
+</script>
+</body>
+</html>
