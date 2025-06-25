@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Check if already logged in
     if (localStorage.getItem("isLoggedIn") === "true") {
-      window.location.href = "Landingpage.html"
+      window.location.href = "index.html"
       return
     }
 
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (user.role === "admin") {
             window.location.href = "admin_dashboard.html"
           } else {
-            window.location.href = "Landingpage.html"
+            window.location.href = "index.html"
           }
         }, 1500)
       } else {
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearUserDataOnLogout()
 
         // Redirect to landing page
-        window.location.href = "Landingpage.html"
+        window.location.href = "index.html"
       })
     })
   }
