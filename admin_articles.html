@@ -122,7 +122,7 @@
                         </a>
                     </li>
                     <li class="nav-item mt-5">
-                        <a class="nav-link text-danger" href="Landingpage.html" data-action="logout">
+                        <a class="nav-link text-danger" href="index.html" data-action="logout">
                             <i class="fas fa-sign-out-alt me-2"></i> Logout
                         </a>
                     </li>
@@ -904,7 +904,7 @@
                     if (confirm('Apakah Anda yakin ingin logout?')) {
                         localStorage.removeItem('isLoggedIn');
                         localStorage.removeItem('currentUser');
-                        window.location.href = 'Landingpage.html';
+                        window.location.href = 'index.html';
                     }
                 });
             });
