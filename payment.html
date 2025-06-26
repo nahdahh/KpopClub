@@ -750,7 +750,7 @@
             localStorage.setItem(userCartKey, JSON.stringify(remainingItems));
 
             // Redirect to payment process page with order ID
-            window.location.href = `payment-process.html?orderId=${order.id}`;
+            window.location.href = `payment_process.html?orderId=${order.id}`;
         }
 
         function updateCartCount() {
